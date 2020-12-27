@@ -8,7 +8,7 @@ export default function Home({ json }) {
             <div>
                 {json?.Items.map((sentence, index) => (
                     <>
-                        <div>{sentence.chinese}</div>
+                        <div onMouseDown={() => responsiveVoice.speak(sentence.pinin)}>{sentence.chinese}</div>
                         <div>{sentence.japanese}</div>
                         <div>{sentence.pinin}</div>
                         <br></br>
