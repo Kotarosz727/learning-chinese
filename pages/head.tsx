@@ -1,7 +1,7 @@
 export default function Head() {
     return (
         <div>
-            <title>test</title>
+            <title>Learning Chinese</title>
         </div>
     );
 }

@@ -17,7 +17,7 @@ export default function card({ sentence, index }) {
     );
 
     return (
-        <div className={`${styles.card} ${flip ? styles.flip : ''}`} onMouseDown={() => setFlip(!flip)}>
+        <div className={`${styles.card} ${flip ? styles.flip : ''}`} onMouseDown={() => setFlip(!flip)} onTouchStart={() => setFlip(!flip)}>
             {flip ? back : front}
             {/* {front}
             {back} */}
