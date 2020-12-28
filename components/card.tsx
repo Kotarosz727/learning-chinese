@@ -17,16 +17,16 @@ export default function card({ sentence, index }) {
     );
     const back = (
         <div className={styles.back}>
-            <SpeakerIcon color="action" style={{ fontSize: 35 }} onMouseDown={() => speak(sentence.chinese)} />
+            <SpeakerIcon color="action" style={{ fontSize: 35 }} onTouchStart={() => speak(sentence.chinese)} onMouseDown={() => speak(sentence.chinese)} />
             <h2>{sentence.chinese}</h2>
-            <p style={{ fontSize: 14 }}>{sentence.pinin}</p>
+            <p style={{ fontSize: 20 }}>{sentence.pinin}</p>
         </div>
     );
 
     return (
         <div className={`${styles.card} ${flip ? styles.flip : ""}`}>
             {flip ? back : front}
-            <span className={styles.button} onMouseDown={() => setFlip(!flip)}><CachedRoundedIcon fontSize="large"/></span>
+            <span className={styles.b_round} onMouseDown={() => setFlip(!flip)}><CachedRoundedIcon className={styles.button} fontSize="large"/></span>
         </div>
     );
 }
