@@ -20,20 +20,18 @@
 .card:hover {
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.699);
 }
-/* 
-.card.flip {
-    --rotate-y: 180deg;
-    height: 400px;
-    width: 900px;
-}
-.card .front {
-    word-break: keep-all;
-    position: absolute;
-    backface-visibility: hidden;
-}
+
+.card .front,
 .card .back {
-    overflow-wrap: break-word;
     position: absolute;
-    transform: rotateY(180deg);
-    backface-visibility: hidden;
-} */
+}
+
+.button {
+    position: absolute;
+    right: 0.8rem;
+    bottom: 3px;
+}
+
+.button:hover {
+    transform: scale(1.5);
+}
