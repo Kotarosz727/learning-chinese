@@ -1,4 +1,10 @@
-.container{
-  margin-top: 1rem;
+.container {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
 }
-
+.next {
+    /* margin: 0 auto; */
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+}

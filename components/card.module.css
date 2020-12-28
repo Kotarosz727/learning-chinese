@@ -4,7 +4,6 @@
     /* text-align: center; */
     align-items: center;
     margin: 0 auto;
-    margin: 0 auto;
     position: relative;
     border-radius: 0.25rem;
     box-shadow: 0 0 5px 2px black;
@@ -27,6 +26,7 @@
 }
 
 .button {
+    color: seashell;
     background-color: red;
     border-radius: 50%;
     position: absolute;

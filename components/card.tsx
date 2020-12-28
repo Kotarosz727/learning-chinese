@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./card.module.css";
 import SpeakerIcon from "@material-ui/icons/Speaker";
-import AutorenewIcon from "@material-ui/icons/Autorenew";
 import CachedRoundedIcon from '@material-ui/icons/CachedRounded';
 
 export default function card({ sentence, index }) {
@@ -22,9 +21,8 @@ export default function card({ sentence, index }) {
             <p style={{ fontSize: 20 }}>{sentence.pinin}</p>
         </div>
     );
-
     return (
-        <div className={`${styles.card} ${flip ? styles.flip : ""}`}>
+        <div className={`${styles.card} ${flip ? styles.flip : ""}`} key={index}>
             {flip ? back : front}
             <span className={styles.b_round} onMouseDown={() => setFlip(!flip)}><CachedRoundedIcon className={styles.button} fontSize="large"/></span>
         </div>
