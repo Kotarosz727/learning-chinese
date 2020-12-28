@@ -1,0 +1,39 @@
+.card {
+    display: flex;
+    justify-content: center;
+    /* text-align: center; */
+    align-items: center;
+    margin: 0 auto;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 5px 2px black;
+    background-color: white;
+    height: 260px;
+    width: 500px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    /* transform-style: preserve-3d;
+    transition: 250ms;
+    transform: perspective(1000px) rotateY(var(--rotate-y, 0)); */
+}
+.card:hover {
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.699);
+}
+/* 
+.card.flip {
+    --rotate-y: 180deg;
+    height: 400px;
+    width: 900px;
+}
+.card .front {
+    word-break: keep-all;
+    position: absolute;
+    backface-visibility: hidden;
+}
+.card .back {
+    overflow-wrap: break-word;
+    position: absolute;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+} */

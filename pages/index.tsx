@@ -1,22 +1,16 @@
 import React, { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import styles from "../styles/Home.module.css";
+import Card from "../components/card";
 import Head from "./head";
 
 export default function Home({ json }) {
-	function speak(s){
-		responsiveVoice.speak(s, "Chinese Female")
-	}
     return (
         <>
             <Head></Head>
-            <div>
+            <div className={styles.container}>
                 {json?.Items.map((sentence, index) => (
-                    <>
-                        <div onMouseDown={() => speak(sentence.pinin)}>{sentence.chinese}</div>
-                        <div>{sentence.japanese}</div>
-                        <div>{sentence.pinin}</div>
-                        <br></br>
-                    </>
+                    <Card sentence={sentence} index={index}></Card>
                 ))}
                 <script src="https://code.responsivevoice.org/responsivevoice.js?key=vLiZJoXL"></script>
             </div>
