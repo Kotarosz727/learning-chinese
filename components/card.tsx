@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./card.module.css";
 import SpeakerIcon from "@material-ui/icons/Speaker";
 import CachedRoundedIcon from '@material-ui/icons/CachedRounded';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 
 export default function card({ sentence, index }) {
     const speak = (s) => {
@@ -24,7 +26,8 @@ export default function card({ sentence, index }) {
     return (
         <div className={`${styles.card} ${flip ? styles.flip : ""}`} key={index}>
             {flip ? back : front}
-            <span className={styles.b_round} onMouseDown={() => setFlip(!flip)}><CachedRoundedIcon className={styles.button} fontSize="large"/></span>
+            <span className={styles.bookMark}><BookmarkBorderOutlinedIcon fontSize="large"/></span>
+            <span onMouseDown={() => setFlip(!flip)}><CachedRoundedIcon className={styles.button} fontSize="large"/></span>
         </div>
     );
 }

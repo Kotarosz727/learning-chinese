@@ -16,7 +16,7 @@ export default function Home({ json }) {
     const [page, setPage] = useState(0);
     let next = <NavigateNextIcon onClick={() => setPage(page + 1)} style={{ fontSize: 50 }} />;
     if (page == Math.floor(result.length / 10)) {
-        next = <BlockIcon style={{ fontSize: 50 }} />;
+        next = <BlockIcon style={{ fontSize: 50 }} onClick={() => setPage(0)}/>;
     }
     if (page == 0) {
         result = result.slice(0, 10);
@@ -34,7 +34,6 @@ export default function Home({ json }) {
                     <Card sentence={sentence} index={index} key={index}></Card>
                 ))}
             </div>
-            <div className={styles.next}>{next}</div>
             <Bar next={next} />
             <script src="https://code.responsivevoice.org/responsivevoice.js?key=vLiZJoXL"></script>
         </>
