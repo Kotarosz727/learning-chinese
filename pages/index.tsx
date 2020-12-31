@@ -5,6 +5,10 @@ import Head from "./head";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Bar from "../components/bar";
 import BlockIcon from "@material-ui/icons/Block";
+//aws Amplify
+import Amplify from 'aws-amplify';
+import config from '../src/aws-exports';
+Amplify.configure(config);
 
 export default function Home({ json }) {
     // const items = Array.from(json?.Items);

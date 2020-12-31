@@ -1,0 +1,26 @@
+.formContainer {
+    margin-top: 5rem;
+    /* width: 350px; */
+}
+
+.Form {
+    display: block;
+    /* justify-content: center; */
+    align-items: center;
+    margin: 0 auto;
+    position: relative;
+    border: 2px solid #ccc;
+    border-radius: 0.25rem;
+    width: 350px;
+    height: 200px;
+}
+
+.error {
+    color: red;
+    width: 350px;
+    display: block;
+    /* justify-content: center; */
+    align-items: center;
+    margin: 0 auto;
+    word-wrap: break-word;
+}
