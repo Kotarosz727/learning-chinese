@@ -68,10 +68,7 @@ export default function bar({ next }) {
                         <SearchIcon />
                     </IconButton>
                     <IconButton edge="end" color="inherit">
-                        <MoreIcon />
-                    </IconButton>
-                    <IconButton edge="end" color="inherit">
-                        <MoreIcon />
+                        Sign In
                     </IconButton>
                 </Toolbar>
             </AppBar>
