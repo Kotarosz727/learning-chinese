@@ -18,7 +18,7 @@ export default function signup() {
         <div>
             <div>
                 Hello, {user.username}
-                <AmplifySignOut />
+                <AmplifySignOut/>
             </div>
         </div>
     ) : (
