@@ -21,8 +21,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "pages/_app.js", "pages/auth/signup.jsx"],
+    "**/*.tsx", 
+    "pages/_app.js", "pages/auth/signup.jsx"],
   "exclude": [
     "node_modules"
   ]
