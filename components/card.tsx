@@ -6,17 +6,11 @@ import { AuthState } from "@aws-amplify/ui-components";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import { setupMaster } from "cluster";
 
-export default function card({ sentence, index, user, authState }): JSX.Element {
+export default function card({ sentence, index, user }): JSX.Element {
     const speak = (s) => {
         responsiveVoice.speak(s, "Chinese Female");
     };
-    const [myuser, setUser] = useState();
-    const [myAuthState, setMyauthState] = useState();
-    useEffect(() => {
-        setUser(user);
-        setMyauthState(authState);
-    });
-    console.log("authState", authState);
+
     const [flip, setFlip] = useState(false);
     const front = (
         <div className={styles.front}>
@@ -46,8 +40,8 @@ export default function card({ sentence, index, user, authState }): JSX.Element 
             {flip ? back : front}
             <span onMouseDown={() => setFlip(!flip)}>
                 <CachedRoundedIcon className={styles.button} fontSize="large" />
-                {myAuthState === AuthState?.SignedIn && myuser ? bookMark : ""}
             </span>
+            {user ? bookMark : ""}
         </div>
     );
 }

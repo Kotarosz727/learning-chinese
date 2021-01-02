@@ -1,19 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-learningchinese-dev-221419-authRole",
-      "UnauthRoleArn": "arn:aws:iam::797857744011:role/amplify-learningchinese-dev-221419-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::797857744011:role/amplify-learningchinese-dev-221419-authRole",
+      "AuthRoleName": "amplify-learningchinese-dev-211108-authRole",
+      "UnauthRoleArn": "arn:aws:iam::797857744011:role/amplify-learningchinese-dev-211108-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::797857744011:role/amplify-learningchinese-dev-211108-authRole",
       "Region": "ap-northeast-1",
-      "DeploymentBucketName": "amplify-learningchinese-dev-221419-deployment",
-      "UnauthRoleName": "amplify-learningchinese-dev-221419-unauthRole",
-      "StackName": "amplify-learningchinese-dev-221419",
-      "StackId": "arn:aws:cloudformation:ap-northeast-1:797857744011:stack/amplify-learningchinese-dev-221419/ee1b4740-4aa0-11eb-9fec-067396fd8508",
-      "AmplifyAppId": "dl6rinbhpdwmm"
+      "DeploymentBucketName": "amplify-learningchinese-dev-211108-deployment",
+      "UnauthRoleName": "amplify-learningchinese-dev-211108-unauthRole",
+      "StackName": "amplify-learningchinese-dev-211108",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:797857744011:stack/amplify-learningchinese-dev-211108/9a9daa40-4cf3-11eb-bc79-0ec3b06a5f1b",
+      "AmplifyAppId": "d22j8pshq2zi1a"
     },
     "categories": {
       "auth": {
-        "learningchinesee0aa48f4": {}
+        "learningchineseb6b63772": {}
       }
     }
   }

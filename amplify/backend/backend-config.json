@@ -1,6 +1,6 @@
 {
   "auth": {
-    "learningchinesee0aa48f4": {
+    "learningchineseb6b63772": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

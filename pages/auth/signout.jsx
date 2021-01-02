@@ -1,13 +1,26 @@
 import React, { useState } from "react";
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp } from "@aws-amplify/ui-react";
+import Amplify, { Auth } from "aws-amplify";
 
 export default function signout() {
-    const [style, setStyle] = useState({ textAlign: "center", marginTop: 20 });
+    Auth.currentAuthenticatedUser({
+        bypassCache: false,
+    })
+        .then((user) => {
+            console.log('ok', user);
+        })
+        .catch((err) => console.log('err', err));
+
+    async function signOUT() {
+        try {
+            await Auth.signOut();
+        } catch (error) {
+            console.log("error signing out: ", error);
+        }
+    }
+
     return (
-        <AmplifyAuthenticator>
-            <div style={style}>
-                <AmplifySignOut button-text="Sign Out"></AmplifySignOut>
-            </div>
-        </AmplifyAuthenticator>
+        <div>
+            <button onClick={signOUT}>Sign Out</button>
+        </div>
     );
 }

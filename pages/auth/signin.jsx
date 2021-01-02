@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Amplify, { Auth } from "aws-amplify";
 
-export default function signup() {
+export default function signin() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
 
@@ -12,18 +12,12 @@ export default function signup() {
         setPassword(e.target.value);
     }
 
-    async function aws_signUP() {
+    async function aws_signIN() {
         try {
-            const { user } = await Auth.signUp({
-                'password': password,
-                'username': name,
-                'attributes': {
-                    'name': name,
-                },
-            });
-            console.log('ok:', user);
+            const user = await Auth.signIn(name, password);
+            console.log("ok");
         } catch (error) {
-            console.log("error signing up:", error);
+            console.log("error signing in", error);
         }
     }
 
@@ -31,7 +25,7 @@ export default function signup() {
         <div>
             <input type="text" placeholder="username" onChange={handleName} />
             <input type="text" placeholder="password" onChange={handlePassword} />
-            <button onClick={aws_signUP}>Sign Up</button>
+            <button onClick={aws_signIN}>Sign In</button>
         </div>
     );
 }

@@ -6,8 +6,6 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Bar from "../components/bar";
 import BlockIcon from "@material-ui/icons/Block";
 import { UserContext } from "../UserContext";
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp } from "@aws-amplify/ui-react";
-
 
 export default function Home({ json }) {
     // const items = Array.from(json?.Items);
@@ -17,9 +15,8 @@ export default function Home({ json }) {
     // const result = randomItems;
     let result = json?.Items;
     const [page, setPage] = useState(0);
-    const { user, authState, msg } = useContext(UserContext);
-    console.log("user: ", user);
-    let next = <NavigateNextIcon onClick={() => setPage(page + 1)} style={{ fontSize: 50 }} />;
+    const loggedinUser = useContext(UserContext);
+    let next = <NavigateNextIcon style={{ fontSize: 50 }} onClick={() => setPage(page + 1)} />;
     if (page == Math.floor(result.length / 10)) {
         next = <BlockIcon style={{ fontSize: 50 }} onClick={() => setPage(0)} />;
     }
@@ -36,10 +33,10 @@ export default function Home({ json }) {
             <Head></Head>
             <div className={styles.container}>
                 {result?.map((sentence, index) => (
-                    <Card sentence={sentence} index={index} key={index} user={user} authState={authState}></Card>
+                    <Card sentence={sentence} index={index} key={index} user={loggedinUser}></Card>
                 ))}
             </div>
-            <Bar next={next} />
+            <div className={styles.next}>{next}</div>
             <script src="https://code.responsivevoice.org/responsivevoice.js?key=vLiZJoXL"></script>
         </>
     );
