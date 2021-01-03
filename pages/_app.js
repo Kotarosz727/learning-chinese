@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
             bypassCache: false,
         })
             .then((user) => {
-                console.log("user is authenticated", user);
+                // console.log("user is authenticated", user);
                 setUser(user.username)
             })
             .catch((err) => console.log("err", err));

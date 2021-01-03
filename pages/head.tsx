@@ -1,7 +1,7 @@
-export default function Head() {
+export default function Head({title}) {
     return (
         <div>
-            <title>Learning Chinese</title>
+            <title>{title}</title>
         </div>
     );
 }

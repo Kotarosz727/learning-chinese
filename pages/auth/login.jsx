@@ -3,21 +3,13 @@ import Amplify, { Auth } from "aws-amplify";
 import { TextField, Button } from "@material-ui/core";
 import Head from "../head";
 
-export default function signup() {
+export default function login() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [errorMsgForName, setErrorMsgForName] = useState("");
-    const [errorMsgForPassword, setErrorMsgForPassword] = useState("8文字以上、1つ以上の半角数字を含めてください");
+    const [errorMsgForPassword, setErrorMsgForPassword] = useState("");
     const [errorToggleForName, setErrorToggleForName] = useState(false);
     const [errorToggleForPassword, setErrorToggleForPassword] = useState(false);
-    const [translate, toggleTranslate] = useState(false);
-
-    function handleName(e) {
-        setName(e.target.value);
-    }
-    function handlePassword(e) {
-        setPassword(e.target.value);
-    }
 
     const styles = {
         display: "block",
@@ -35,67 +27,62 @@ export default function signup() {
         marginTop: "2rem",
     };
 
-    async function aws_signUP() {
+    function handleName(e) {
+        setName(e.target.value);
+    }
+    function handlePassword(e) {
+        setPassword(e.target.value);
+    }
+
+    async function aws_login() {
         try {
-            validateName(name);
-            validatePassword(password);
-            const { user } = await Auth.signUp({
-                password: password,
-                username: name,
-                attributes: {
-                    name: name,
-                },
-            });
-            console.log("ok:", user);
+            validateName();
+            validatePassword();
+            const user = await Auth.signIn(name, password);
+            console.log("ok");
         } catch (e) {
-            if (e == "nonameException") {
+            console.log("error signing in", e);
+            if (e === "noNameException") {
                 setErrorMsgForName("ユーザー名を入力してください");
                 setErrorToggleForName(true);
             }
-            if (e == "noPasswordException") {
-                setErrorMsgForPassword("パスワードを入力してください");
+            if (e === "noPasswordException") {
+                setErrorMsgForPassword("パスワードを入力して下さい");
                 setErrorToggleForPassword(true);
             }
-            if (e == "shortPasswordException") {
-                setErrorMsgForPassword("パスワードは8文字以上を入力してください");
-                setErrorToggleForPassword(true);
-            }
-            if (e.name == "UsernameExistsException") {
-                setErrorMsgForName("ユーザー名はすでに登録されています");
+            if (e.name === "UserNotFoundException") {
+                setErrorMsgForName("ユーザーが存在しません");
                 setErrorToggleForName(true);
             }
-            if (e.message == "Password did not conform with policy: Password must have numeric characters") {
-                setErrorMsgForPassword("パスワードには数字を含めてください");
+            if (e.name === "NotAuthorizedException") {
+                setErrorMsgForName("ユーザー名またはパスワードが違います");
+                setErrorToggleForName(true);
+                setErrorMsgForPassword("ユーザー名またはパスワードが違います");
                 setErrorToggleForPassword(true);
             }
-            console.log("error signing up:", e);
         }
     }
 
     function validateName(name) {
         if (!name) {
-            throw "nonameException";
+            throw "noNameException";
         }
     }
-
     function validatePassword(password) {
         if (!password) {
             throw "noPasswordException";
-        }
-        if (password.length < 8) {
-            throw "shortPasswordException";
         }
     }
 
     return (
         <>
-            <Head title="会員登録"></Head>
+            <Head title={'ログイン'}></Head>
             <div style={styles}>
-                <div onMouseOver={() => toggleTranslate(!translate)}>{translate ? <h2>会员登录</h2> : <h2>会員登録</h2>}</div>
+                <h2>ログイン</h2>
                 <div>
                     <TextField
-                        error={errorToggleForName}
                         id="username"
+                        error={errorToggleForName}
                         style={{ width: 400, marginBottom: "2rem", positon: "relative" }}
                         label="ユーザー名"
                         helperText={errorMsgForName}
@@ -104,8 +91,8 @@ export default function signup() {
                 </div>
                 <div>
                     <TextField
-                        error={errorToggleForPassword}
                         id="password"
+                        error={errorToggleForPassword}
                         style={{ width: 400, positon: "relative" }}
                         label="パスワード"
                         type="password"
@@ -113,8 +100,8 @@ export default function signup() {
                         onChange={handlePassword}
                     />
                 </div>
-                <Button style={button_style} variant="contained" color="primary" onClick={aws_signUP}>
-                    登録
+                <Button style={button_style} variant="contained" color="primary" onClick={aws_login}>
+                    ログイン
                 </Button>
             </div>
         </>
