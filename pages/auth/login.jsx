@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Amplify, { Auth } from "aws-amplify";
 import { TextField, Button } from "@material-ui/core";
 import Head from "../head";
+import { useRouter } from "next/router";
 
 export default function login() {
     const [name, setName] = useState("");
@@ -10,6 +11,7 @@ export default function login() {
     const [errorMsgForPassword, setErrorMsgForPassword] = useState("");
     const [errorToggleForName, setErrorToggleForName] = useState(false);
     const [errorToggleForPassword, setErrorToggleForPassword] = useState(false);
+    const router = useRouter();
 
     const styles = {
         display: "block",
@@ -36,10 +38,10 @@ export default function login() {
 
     async function aws_login() {
         try {
-            validateName();
-            validatePassword();
+            validateName(name);
+            validatePassword(password);
             const user = await Auth.signIn(name, password);
-            console.log("ok");
+            router.push("/");
         } catch (e) {
             console.log("error signing in", e);
             if (e === "noNameException") {
@@ -76,7 +78,7 @@ export default function login() {
 
     return (
         <>
-            <Head title={'ログイン'}></Head>
+            <Head title={"ログイン"}></Head>
             <div style={styles}>
                 <h2>ログイン</h2>
                 <div>
