@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import { UserContext } from "../UserContext";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../src/aws-exports";
+import AppBar from "../components/bar"
 Amplify.configure(awsconfig);
 
 function MyApp({ Component, pageProps }) {
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <UserContext.Provider value={user}>
+          <AppBar/>
             <Component {...pageProps} />
         </UserContext.Provider>
     );

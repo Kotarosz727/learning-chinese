@@ -30,7 +30,7 @@ export default function Home({ json }) {
     }
     return (
         <>
-            <Head title='Learning Chinese'></Head>
+            <Head title='中国语学习'></Head>
             <div className={styles.container}>
                 {result?.map((sentence, index) => (
                     <Card sentence={sentence} index={index} key={index} user={loggedinUser}></Card>
