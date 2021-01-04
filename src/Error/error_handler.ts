@@ -1,9 +1,9 @@
-interface error_obj {
+type error_obj = {
     kind: string;
     msg: string;
-}
+};
 export default class error_handler {
-    res: error_obj
+    res: error_obj;
 
     public handle_error = (e: any): error_obj => {
         if (e == "nonameException") {
@@ -24,5 +24,5 @@ export default class error_handler {
         } else {
             throw e;
         }
-    } 
+    };
 }
