@@ -28,7 +28,7 @@ export default function signup(): JSX.Element {
         margin: "0 auto",
         textAlign: "center" as "center",
         marginTop: "10rem",
-        height: 300,
+        height: 350,
         width: 500,
         border: "2px solid #ccc",
         borderRadius: "1rem",

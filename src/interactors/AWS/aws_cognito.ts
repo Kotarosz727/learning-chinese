@@ -6,17 +6,16 @@ export default class aws_cognito {
     validated_password: string;
 
     //add user to cognito user pool
-    public cognito_signUp = async (input_name?: string, input_password?: string): Promise<CognitoUser> => {
+    public cognito_signUp = async (input_name?: string, input_password?: string): Promise<void> => {
         this.validated_name = this.validateName(input_name);
         this.validated_password = this.validatePassword(input_password);
-        const { user } = await Auth.signUp({
+        await Auth.signUp({
             username: this.validated_name,
             password: this.validated_password,
             attributes: {
                 name: this.validated_name,
             },
         });
-        return user;
     };
 
     private validateName = (name?: string): string => {
