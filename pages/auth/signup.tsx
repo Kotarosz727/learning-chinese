@@ -39,33 +39,23 @@ export default function signup(): JSX.Element {
         marginTop: "2rem",
     };
 
+    interface error_object {
+        kind: string;
+        msg: string;
+    }
     const signUp = async (): Promise<void> => {
-        try {
-            await new aws_cognito().cognito_signUp(name, password);
+        const res: true | error_object = await new aws_cognito().cognito_signUp(name, password);
+        if (res === true) {
             alert("会員登録いただきありがとうございます。管理者の認証をお待ちください。");
             router.push("/");
-        } catch (error) {
-            if (error == "nonameException") {
-                setErrorMsgForName("ユーザー名を入力してください");
+        } else if (typeof res === "object") {
+            if (res.kind === "name") {
+                setErrorMsgForName(res.msg);
                 setErrorToggleForName(true);
-            }
-            if (error == "noPasswordException") {
-                setErrorMsgForPassword("パスワードを入力してください");
+            } else if (res.kind === "password") {
+                setErrorMsgForPassword(res.msg);
                 setErrorToggleForPassword(true);
             }
-            if (error == "shortPasswordException") {
-                setErrorMsgForPassword("パスワードは8文字以上を入力してください");
-                setErrorToggleForPassword(true);
-            }
-            if (error.name == "UsernameExistsException") {
-                setErrorMsgForName("ユーザー名はすでに登録されています");
-                setErrorToggleForName(true);
-            }
-            if (error.message == "Password did not conform with policy: Password must have numeric characters") {
-                setErrorMsgForPassword("パスワードには数字を含めてください");
-                setErrorToggleForPassword(true);
-            }
-            console.log("error signing up:", error);
         }
     };
 

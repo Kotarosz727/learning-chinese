@@ -1,21 +1,29 @@
-import { CognitoUser } from "amazon-cognito-identity-js";
 import { Auth } from "aws-amplify";
-
+import error_handler from "../../Error/error_handler";
+interface error_obj {
+    kind: string;
+    msg: string;
+}
 export default class aws_cognito {
     validated_name: string;
     validated_password: string;
-
     //add user to cognito user pool
-    public cognito_signUp = async (input_name?: string, input_password?: string): Promise<void> => {
-        this.validated_name = this.validateName(input_name);
-        this.validated_password = this.validatePassword(input_password);
-        await Auth.signUp({
-            username: this.validated_name,
-            password: this.validated_password,
-            attributes: {
-                name: this.validated_name,
-            },
-        });
+    public cognito_signUp = async (input_name?: string, input_password?: string): Promise<true | error_obj> => {
+        try {
+            this.validated_name = this.validateName(input_name);
+            this.validated_password = this.validatePassword(input_password);
+            await Auth.signUp({
+                username: this.validated_name,
+                password: this.validated_password,
+                attributes: {
+                    name: this.validated_name,
+                },
+            });
+            return true;
+        } catch (error) {
+            const res: error_obj = new error_handler().handle_error(error);
+            return res;
+        }
     };
 
     private validateName = (name?: string): string => {
