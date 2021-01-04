@@ -23,7 +23,7 @@ export default function signup(): JSX.Element {
         setPassword(e.currentTarget.value);
     };
 
-    const styles: object = {
+    const styles: React.CSSProperties = {
         display: "block",
         margin: "0 auto",
         textAlign: "center" as "center",
@@ -32,14 +32,14 @@ export default function signup(): JSX.Element {
         width: 500,
         border: "2px solid #ccc",
         borderRadius: "1rem",
-        positon: "relative",
+        position: "relative",
     };
 
-    const button_style: object = {
+    const button_style: React.CSSProperties = {
         marginTop: "2rem",
     };
 
-    const signUp = async () => {
+    const signUp = async (): Promise<void> => {
         try {
             await new aws_cognito().cognito_signUp(name, password);
             alert("会員登録いただきありがとうございます。管理者の認証をお待ちください。");
