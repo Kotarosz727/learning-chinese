@@ -16,13 +16,6 @@ export default function signup(): JSX.Element {
     const [isTranslate, toggleTranslate] = useState<boolean | null>(false);
     const router = useRouter();
 
-    const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.currentTarget.value);
-    };
-    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.currentTarget.value);
-    };
-
     const styles: React.CSSProperties = {
         display: "block",
         margin: "0 auto",
@@ -34,16 +27,21 @@ export default function signup(): JSX.Element {
         borderRadius: "1rem",
         position: "relative",
     };
-
     const button_style: React.CSSProperties = {
         marginTop: "2rem",
     };
 
-    interface error_object {
-        kind: string;
-        msg: string;
-    }
+    const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.currentTarget.value);
+    };
+    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.currentTarget.value);
+    };
     const signUp = async (): Promise<void> => {
+        type error_object = {
+            kind: string;
+            msg: string;
+        }
         const res: true | error_object = await new aws_cognito().cognito_signUp(name, password);
         if (res === true) {
             alert("会員登録いただきありがとうございます。管理者の認証をお待ちください。");
