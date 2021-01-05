@@ -1,32 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
+import Amplify, { Auth } from "aws-amplify";
 import { TextField, Button } from "@material-ui/core";
 import Head from "../head";
+import { useRouter } from "next/router";
 import aws_cognito from "../../src/interactors/AWS/aws_cognito";
 
-export default function signup(): JSX.Element {
-    const [name, setName] = useState<string | null>("");
-    const [password, setPassword] = useState<string | null>("");
-    const [errorMsgForName, setErrorMsgForName] = useState<string | null>("");
-    const [errorMsgForPassword, setErrorMsgForPassword] = useState<string>(
-        "8文字以上、1つ以上の半角数字を含めてください"
-    );
+export default function login() {
+    type strOrNull = string | null;
+    const [name, setName] = useState<strOrNull>("");
+    const [password, setPassword] = useState<strOrNull>("");
+    const [errorMsgForName, setErrorMsgForName] = useState<strOrNull>("");
+    const [errorMsgForPassword, setErrorMsgForPassword] = useState<strOrNull>("");
     const [errorToggleForName, setErrorToggleForName] = useState<boolean>(false);
     const [errorToggleForPassword, setErrorToggleForPassword] = useState<boolean>(false);
-    const [isTranslate, toggleTranslate] = useState<boolean>(false);
     const router = useRouter();
 
     const styles: React.CSSProperties = {
         display: "block",
         margin: "0 auto",
-        textAlign: "center" as "center",
+        textAlign: "center",
         marginTop: "10rem",
-        height: 350,
+        height: 300,
         width: 500,
         border: "2px solid #ccc",
         borderRadius: "1rem",
         position: "relative",
     };
+
     const button_style: React.CSSProperties = {
         marginTop: "2rem",
     };
@@ -37,20 +37,23 @@ export default function signup(): JSX.Element {
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value);
     };
-    const signUp = async (): Promise<void> => {
-        type error_object = {
-            kind: string;
-            msg: string;
-        }
-        const res: true | error_object = await new aws_cognito().cognito_signUp(name, password);
+
+    const login = async (): Promise<void> => {
+        const res = await new aws_cognito().cognito_login(name, password);
         if (res === true) {
-            alert("会員登録いただきありがとうございます。管理者の認証をお待ちください。");
+            alert("Hi !");
             router.push("/");
-        } else if (typeof res === "object") {
+        }
+        if (typeof res === "object") {
             if (res.kind === "name") {
                 setErrorMsgForName(res.msg);
                 setErrorToggleForName(true);
             } else if (res.kind === "password") {
+                setErrorMsgForPassword(res.msg);
+                setErrorToggleForPassword(true);
+            } else if (res.kind === "both") {
+                setErrorMsgForName(res.msg);
+                setErrorToggleForName(true);
                 setErrorMsgForPassword(res.msg);
                 setErrorToggleForPassword(true);
             }
@@ -59,15 +62,13 @@ export default function signup(): JSX.Element {
 
     return (
         <>
-            <Head title="会員登録"></Head>
+            <Head title={"ログイン"}></Head>
             <div style={styles}>
-                <div onMouseOver={(): void => toggleTranslate(!isTranslate)}>
-                    {isTranslate ? <h2>会员登录</h2> : <h2>会員登録</h2>}
-                </div>
+                <h2>ログイン</h2>
                 <div>
                     <TextField
-                        error={errorToggleForName}
                         id="username"
+                        error={errorToggleForName}
                         style={{ width: 400, marginBottom: "2rem", position: "relative" }}
                         label="ユーザー名"
                         helperText={errorMsgForName}
@@ -76,8 +77,8 @@ export default function signup(): JSX.Element {
                 </div>
                 <div>
                     <TextField
-                        error={errorToggleForPassword}
                         id="password"
+                        error={errorToggleForPassword}
                         style={{ width: 400, position: "relative" }}
                         label="パスワード"
                         type="password"
@@ -85,13 +86,8 @@ export default function signup(): JSX.Element {
                         onChange={handlePassword}
                     />
                 </div>
-                <Button
-                    style={button_style}
-                    variant="contained"
-                    color="primary"
-                    onClick={(): Promise<void> => signUp()}
-                >
-                    登録
+                <Button style={button_style} variant="contained" color="primary" onClick={login}>
+                    ログイン
                 </Button>
             </div>
         </>

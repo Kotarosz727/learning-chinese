@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import Amplify, { Auth } from "aws-amplify";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import aws_cognito from "../src/interactors/AWS/aws_cognito";
 
 export default function MyMenu({ user }) {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -18,14 +18,13 @@ export default function MyMenu({ user }) {
         setAnchorEl(null);
     };
 
-    async function logout() {
-        try {
-            await Auth.signOut();
+    const logout = async () => {
+        const res = await new aws_cognito().cognito_logout();
+        if (res === true) {
+            alert("ログアウトしました");
             router.push("/");
-        } catch (error) {
-            console.log("error signing out: ", error);
         }
-    }
+    };
 
     return (
         <div>

@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MyMenu from "./menu.jsx";
+import MyMenu from "./menu";
 import Link from "next/link";
 
 const useStyles = makeStyles((theme: Theme) =>

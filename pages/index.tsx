@@ -3,17 +3,16 @@ import styles from "../styles/Home.module.css";
 import Card from "../components/card";
 import Head from "./head";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import Bar from "../components/bar";
 import BlockIcon from "@material-ui/icons/Block";
 import { UserContext } from "../UserContext";
 
-export default function Home({ json }) {
-    // const items = Array.from(json?.Items);
+export default function Home({ sentences }) {
+    // const items = Array.from(sentences?.Items);
     // const start = Math.floor(Math.random() * items.length);
     // const end = start + 10;
     // const randomItems = items.slice(start, end);
     // const result = randomItems;
-    let result = json?.Items;
+    let result = sentences?.Items;
     const [page, setPage] = useState(0);
     const loggedinUser = useContext(UserContext);
     let next = <NavigateNextIcon style={{ fontSize: 50 }} onClick={() => setPage(page + 1)} />;
@@ -30,7 +29,7 @@ export default function Home({ json }) {
     }
     return (
         <>
-            <Head title='中国语学习'></Head>
+            <Head title="中国语学习"></Head>
             <div className={styles.container}>
                 {result?.map((sentence, index) => (
                     <Card sentence={sentence} index={index} key={index} user={loggedinUser}></Card>
@@ -42,17 +41,17 @@ export default function Home({ json }) {
     );
 }
 
-export async function getStaticProps() {
+export const getStaticProps = async (): Promise<object> => {
     const url = "https://mlsei45cm3.execute-api.ap-northeast-1.amazonaws.com/dev/sentences";
     const res = await fetch(url);
-    const json = await res.json();
-    if (json.errors) {
-        console.error(json.errors);
+    const sentences = await res.json();
+    if (sentences.errors) {
+        console.error(sentences.errors);
         throw new Error("Feild to Fetch data");
     }
     return {
         props: {
-            json,
+            sentences,
         },
     };
-}
+};

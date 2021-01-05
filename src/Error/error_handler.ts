@@ -21,7 +21,17 @@ export default class error_handler {
         } else if (e.message == "Password did not conform with policy: Password must have numeric characters") {
             let res = { kind: "password", msg: "パスワードには数字を含めてください" };
             return res;
-        } else {
+        } else if (e.name === "UserNotFoundException") {
+            let res = { kind: "name", msg: "ユーザーが存在しません" };
+            return res;
+        } else if (e.name === "NotAuthorizedException") {
+            let res = { kind: "both", msg: "ユーザー名またはパスワードが違います" };
+            return res;
+        } else if (e.name === 'UserNotConfirmedException') {
+            let res = { kind: "name", msg: "ユーザーが認証されていません。もうしばらくお待ちください。" };
+            return res;
+        }
+        else {
             throw e;
         }
     };
