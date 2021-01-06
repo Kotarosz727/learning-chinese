@@ -7,40 +7,22 @@ import IconButton from "@material-ui/core/IconButton";
 import MyMenu from "./menu";
 import Link from "next/link";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            flexGrow: 1,
-        },
-        menuButton: {
-            marginRight: theme.spacing(3),
-        },
-        title: {
-            marginLeft: 10,
-            flexGrow: 1,
-        },
-    })
-);
-
-export default function Bar({ user }) {
-    const classes = useStyles();
-
+export default function Bar({ username }) {
     return (
-        <div className={classes.root}>
+        <div>
             <AppBar position="fixed">
                 <Toolbar>
-                    <div className={classes.menuButton}>
-                        <MyMenu user={user} />
+                    <div>
+                        <MyMenu user={username} />
                     </div>
-
-                    <Typography variant="h4" className={classes.title}>
+                    <Typography variant="h4" style={{ marginLeft: 30 }}>
                         <Link href="/">
                             <a style={{ color: "white" }}>中国语学习</a>
                         </Link>
                     </Typography>
-                    {user ? (
-                        <Typography variant="h6" className={classes.title}>
-                            你好! {user}
+                    {username ? (
+                        <Typography variant="h6" style={{ marginLeft: 30 }}>
+                            你好! {username}
                         </Typography>
                     ) : (
                         ""
