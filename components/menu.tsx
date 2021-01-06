@@ -31,26 +31,24 @@ export default function MyMenu({ user }) {
             <div aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 <MenuIcon />
             </div>
-            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem> */}
-                {user ? (
+            {user ? (
+                <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                     <MenuItem onClick={() => logout()}>ログアウト</MenuItem>
-                ) : (
-                    <>
-                        <MenuItem>
-                            <Link href="/auth/login">
-                                <a>ログイン</a>
-                            </Link>
-                        </MenuItem>
-                        <MenuItem>
-                            <Link href="/auth/signup">
-                                <a>会員登録</a>
-                            </Link>
-                        </MenuItem>
-                    </>
-                )}
-            </Menu>
+                </Menu>
+            ) : (
+                <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+                    <MenuItem>
+                        <Link href="/auth/login">
+                            <a>ログイン</a>
+                        </Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <Link href="/auth/signup">
+                            <a>会員登録</a>
+                        </Link>
+                    </MenuItem>
+                </Menu>
+            )}
         </div>
     );
 }

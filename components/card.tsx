@@ -5,13 +5,15 @@ import CachedRoundedIcon from "@material-ui/icons/CachedRounded";
 import { AuthState } from "@aws-amplify/ui-components";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import { setupMaster } from "cluster";
+import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
 
-export default function card({ sentence, index, user }): JSX.Element {
+export default function card({ sentence, index, userid , url}): JSX.Element {
     const speak = (s) => {
         responsiveVoice.speak(s, "Chinese Female");
     };
 
     const [flip, setFlip] = useState(false);
+
     const front = (
         <div className={styles.front}>
             <h2>{sentence.japanese}</h2>
@@ -29,9 +31,12 @@ export default function card({ sentence, index, user }): JSX.Element {
             <p style={{ fontSize: 20 }}>{sentence.pinin}</p>
         </div>
     );
+    const postFavorite = async () => {
+        await new ChineseInterator().postFavorite(sentence, userid, url);
+    };
     const bookMark = (
         <span className={styles.bookMark}>
-            <BookmarkBorderOutlinedIcon fontSize="large" />
+            <BookmarkBorderOutlinedIcon fontSize="large" onClick={postFavorite} />
         </span>
     );
 
@@ -41,7 +46,16 @@ export default function card({ sentence, index, user }): JSX.Element {
             <span onMouseDown={() => setFlip(!flip)}>
                 <CachedRoundedIcon className={styles.button} fontSize="large" />
             </span>
-            {user ? bookMark : ""}
+            {userid ? bookMark : ""}
         </div>
     );
 }
+
+export const getStaticProps = () => {
+    const url: string = process.env.LAMBDA_URL;
+    return {
+        props: {
+            url,
+        },
+    };
+};

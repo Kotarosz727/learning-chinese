@@ -7,20 +7,21 @@ import AppBar from "../components/bar";
 Amplify.configure(awsconfig);
 
 function MyApp({ Component, pageProps }) {
-    const [user, setUser] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [userid, setUserid] = useState(null);
 
     useEffect(() => {
         Auth.currentAuthenticatedUser({
             bypassCache: false,
         }).then((user) => {
-            setUser(user.username);
+            setUsername(user.username);
+            setUserid(user.attributes.sub) 
         });
-        // .catch((err) => console.log("err", err));
     });
 
     return (
-        <UserContext.Provider value={user}>
-            <AppBar user={user} />
+        <UserContext.Provider value={userid}>
+            <AppBar username={username} />
             <Component {...pageProps} />
         </UserContext.Provider>
     );
