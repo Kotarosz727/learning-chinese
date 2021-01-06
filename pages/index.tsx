@@ -42,7 +42,7 @@ export default function Home({ sentences }) {
 }
 
 export const getStaticProps = async (): Promise<object> => {
-    const url = "https://mlsei45cm3.execute-api.ap-northeast-1.amazonaws.com/dev/sentences";
+    const url = process.env.LAMBDA_URL;
     const res = await fetch(url);
     const sentences = await res.json();
     if (sentences.errors) {
