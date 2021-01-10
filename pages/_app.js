@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
             bypassCache: false,
         }).then((user) => {
             setUsername(user.username);
-            setUserid(user.attributes.sub) 
+            setUserid(user.attributes.sub);
         });
     });
 
@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }) {
         <UserContext.Provider value={userid}>
             <AppBar username={username} />
             <Component {...pageProps} />
+            <script src="https://code.responsivevoice.org/responsivevoice.js?key=vLiZJoXL"></script>
         </UserContext.Provider>
     );
 }

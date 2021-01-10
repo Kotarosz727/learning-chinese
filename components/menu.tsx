@@ -33,6 +33,11 @@ export default function MyMenu({ user }) {
             </div>
             {user ? (
                 <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+                    <MenuItem>
+                        <Link href="/bookmark">
+                            <a>ブックマーク</a>
+                        </Link>
+                    </MenuItem>
                     <MenuItem onClick={() => logout()}>ログアウト</MenuItem>
                 </Menu>
             ) : (
