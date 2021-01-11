@@ -1,7 +1,7 @@
 import { AppBar } from "@material-ui/core";
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../UserContext";
-import Head from "./head";
+import Head from "../components/head";
 import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
 
 const BookMark =({url}) => {
