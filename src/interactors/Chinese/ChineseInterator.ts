@@ -33,6 +33,9 @@ export default class ChineseInterator {
     };
 
     public fetchFavorites = async (url, userid): Promise<any> => {
+        const data = {
+            userid: userid,
+        };
         try {
             const res = await fetch(url, {
                 method: "POST",
@@ -40,7 +43,7 @@ export default class ChineseInterator {
                 headers: {
                     "content-Type": "application/json",
                 },
-                body: JSON.stringify(userid),
+                body: JSON.stringify(data),
             });
             return res;
         } catch (e) {

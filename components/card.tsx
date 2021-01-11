@@ -50,12 +50,3 @@ export default function card({ sentence, index, userid , url}): JSX.Element {
         </div>
     );
 }
-
-export const getStaticProps = () => {
-    const url: string = process.env.LAMBDA_URL;
-    return {
-        props: {
-            url,
-        },
-    };
-};

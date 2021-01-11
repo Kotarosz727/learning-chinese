@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Amplify, { Auth } from "aws-amplify";
 import { TextField, Button } from "@material-ui/core";
-import Head from "../head";
+import Head from "../../components/head";
 import { useRouter } from "next/router";
 import aws_cognito from "../../src/interactors/AWS/aws_cognito";
 
