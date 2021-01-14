@@ -1,7 +1,7 @@
 export default class ChineseInterator {
     public fetchLists = async (url): Promise<object | null> => {
         try {
-            const res = await fetch(url);
+            const res = await fetch(url, { method: "GET", mode: "no-cors" });
             const sentences = await res.json();
             return sentences.Items;
         } catch (e) {
@@ -32,22 +32,24 @@ export default class ChineseInterator {
         }
     };
 
-    public fetchFavorites = async (url, userid): Promise<any> => {
-        const data = {
-            userid: userid,
-        };
-        try {
+    public fetchFavorites = async (url, userid): Promise<[]> => {
+        if (userid && url) {
+            const data = {
+                userid: userid,
+            };
+
             const res = await fetch(url, {
                 method: "POST",
-                mode: "no-cors",
+                // mode: "no-cors",
                 headers: {
                     "content-Type": "application/json",
                 },
                 body: JSON.stringify(data),
             });
-            return res;
-        } catch (e) {
-            console.log("got error", e);
+            const sentences = await res.json();
+            return sentences.Items;
         }
     };
+
+    public objectToArray = (object) => {};
 }

@@ -6,8 +6,9 @@ import { AuthState } from "@aws-amplify/ui-components";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import { setupMaster } from "cluster";
 import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
 
-export default function card({ sentence, index, userid , url}): JSX.Element {
+export default function card({ sentence, index, userid, url }): JSX.Element {
     const speak = (s) => {
         responsiveVoice.speak(s, "Chinese Female");
     };
@@ -34,11 +35,21 @@ export default function card({ sentence, index, userid , url}): JSX.Element {
     const postFavorite = async () => {
         await new ChineseInterator().postFavorite(sentence, userid, url);
     };
-    const bookMark = (
-        <span className={styles.bookMark}>
-            <BookmarkBorderOutlinedIcon fontSize="large" onClick={postFavorite} />
-        </span>
-    );
+    const bookMark = (): JSX.Element => {
+        if (sentence.bookmark === true) {
+            return (
+                <span className={styles.bookMark}>
+                    <BookmarkIcon fontSize="large" />
+                </span>
+            );
+        } else {
+            return (
+                <span className={styles.bookMark}>
+                    <BookmarkBorderOutlinedIcon fontSize="large" onClick={postFavorite} />
+                </span>
+            );
+        }
+    };
 
     return (
         <div className={`${styles.card} ${flip ? styles.flip : ""}`} key={index}>
@@ -46,7 +57,7 @@ export default function card({ sentence, index, userid , url}): JSX.Element {
             <span onMouseDown={() => setFlip(!flip)}>
                 <CachedRoundedIcon className={styles.button} fontSize="large" />
             </span>
-            {userid ? bookMark : ""}
+            {userid ? bookMark() : ""}
         </div>
     );
 }

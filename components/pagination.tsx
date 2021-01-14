@@ -14,9 +14,9 @@ export default function Pagination({ sentence, url }) {
         window.scrollTo(0, 0);
     };
 
-    let NextButton: JSX.Element = <NavigateNextIcon style={{ fontSize: 50 }} onClick={executeNextPage} />;
-    if (currentPage == Math.floor(sentence?.length / 10)) {
-        NextButton = <div>end</div>;
+    let NextButton = <div></div>;
+    if (Math.floor(sentence?.length / 10) >= 1) {
+        NextButton =  <NavigateNextIcon style={{ fontSize: 50 }} onClick={executeNextPage} />;
     }
 
     return (
