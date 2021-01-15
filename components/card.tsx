@@ -7,11 +7,60 @@ import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutline
 import { setupMaster } from "cluster";
 import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
+import BookMark from "../pages/bookmark";
 
 export default function card({ sentence, index, userid, url }): JSX.Element {
+    type type_favarites = {
+        userid: string;
+        chinese: string;
+        pinin: string;
+        japanese: string;
+    }[];
+
+    const [s, sets] = useState(sentence);
+
     const speak = (s) => {
         responsiveVoice.speak(s, "Chinese Female");
     };
+    const postFavorite = async () => {
+        await new ChineseInterator().postFavorite(sentence, userid, url);
+    };
+
+    useEffect(() => {
+        const fetchFavorite = async (url_favorite, userid) => {
+            const res: type_favarites = await new ChineseInterator().fetchFavorites(url_favorite, userid);
+            if (res?.length) {
+                const bookmark_array = [];
+                res?.map((r) => {
+                    bookmark_array.push(r.chinese);
+                });
+                if (bookmark_array.findIndex((item) => item === s.chinese) >= 0){
+                    s.bookmark = true
+                }
+                const updated = {...s}
+                sets(updated)  
+            }
+        };
+        if (userid) {
+            const url_favorite = process.env.LAMBDA_URL2;
+            fetchFavorite(url_favorite, userid);
+        }
+    }, [userid]);
+
+    let bookmark = <div></div>;
+    if (sentence.bookmark === true) {
+        bookmark = (
+            <span className={styles.bookMark}>
+                <BookmarkIcon fontSize="large" />
+            </span>
+        );
+    } else {
+        bookmark = (
+            <span className={styles.bookMark}>
+                <BookmarkBorderOutlinedIcon fontSize="large" onClick={postFavorite} />
+            </span>
+        );
+    }
 
     const [flip, setFlip] = useState(false);
 
@@ -32,24 +81,6 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
             <p style={{ fontSize: 20 }}>{sentence.pinin}</p>
         </div>
     );
-    const postFavorite = async () => {
-        await new ChineseInterator().postFavorite(sentence, userid, url);
-    };
-    const bookMark = (): JSX.Element => {
-        if (sentence.bookmark === true) {
-            return (
-                <span className={styles.bookMark}>
-                    <BookmarkIcon fontSize="large" />
-                </span>
-            );
-        } else {
-            return (
-                <span className={styles.bookMark}>
-                    <BookmarkBorderOutlinedIcon fontSize="large" onClick={postFavorite} />
-                </span>
-            );
-        }
-    };
 
     return (
         <div className={`${styles.card} ${flip ? styles.flip : ""}`} key={index}>
@@ -57,7 +88,7 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
             <span onMouseDown={() => setFlip(!flip)}>
                 <CachedRoundedIcon className={styles.button} fontSize="large" />
             </span>
-            {userid ? bookMark() : ""}
+            {userid ? bookmark : ""}
         </div>
     );
 }
