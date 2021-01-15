@@ -21,7 +21,7 @@ export default class ChineseInterator {
         try {
             const res = await fetch(url, {
                 method: "POST",
-                mode: "no-cors",
+                // mode: "no-cors",
                 headers: {
                     "content-Type": "application/json",
                 },
@@ -50,6 +50,4 @@ export default class ChineseInterator {
             return sentences.Items;
         }
     };
-
-    public objectToArray = (object) => {};
 }
