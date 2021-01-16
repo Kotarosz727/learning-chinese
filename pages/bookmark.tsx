@@ -16,7 +16,7 @@ export default function BookMark() {
             setFavorites(await new ChineseInterator().fetchFavorites(url_favorite, userid));
         };
         fetchFavorite(url_favorite, userid);
-    }, [userid, favorites]);
+    }, [userid]);
 
     return (
         <>

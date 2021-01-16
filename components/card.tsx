@@ -21,19 +21,18 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
 
     const [content, setContent] = useState(sentence);
     const url_favorite: string = process.env.LAMBDA_URL2;
-    const postFavorite = async (): Promise<void> => {
-        await new ChineseInterator().postFavorite(sentence, userid, url);
+    const postFavorite = async (value): Promise<void> => {
+        await new ChineseInterator().postFavorite(value, userid, url);
         await updateBookmarkStatus(url_favorite, userid);
     };
-    const deleteFavorite = async () => {
+    const deleteFavorite = async (value) => {
         const data: data = {
             userid: userid,
-            chinese: content.chinese,
+            chinese: value.chinese,
         };
         await new ChineseInterator().deleteFavorite(url_favorite, data);
-        content.bookmark = false;
-        const updated = { ...content };
-        // console.log(content);
+        value.bookmark = false;
+        const updated = { ...value };
         setContent(updated);
     };
 
@@ -41,13 +40,13 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
     if (content.bookmark === true) {
         bookmark = (
             <span className={styles.bookMark}>
-                <BookmarkIcon fontSize="large" onClick={deleteFavorite} />
+                <BookmarkIcon fontSize="large" onClick={() => deleteFavorite(content)} />
             </span>
         );
     } else {
         bookmark = (
             <span className={styles.bookMark}>
-                <BookmarkBorderOutlinedIcon fontSize="large" onClick={postFavorite} />
+                <BookmarkBorderOutlinedIcon fontSize="large" onClick={() => postFavorite(content)} />
             </span>
         );
     }
@@ -73,7 +72,6 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
     const frontCard = (
         <div className={styles.front}>
             <h2>{content.japanese}</h2>
-            {content.bookmark? "true" : "false"}
         </div>
     );
     const backCard = (
