@@ -3,7 +3,7 @@ import Card from "../components/card";
 import { UserContext } from "../UserContext";
 
 export default function ViewContents({ startPage, endPage, sentence, url }): JSX.Element {
-    const userid = useContext(UserContext);
+    const userid:string = useContext(UserContext);
 
     let viewContents = sentence?.slice(startPage, endPage);
 

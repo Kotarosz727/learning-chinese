@@ -17,7 +17,7 @@ export default class ChineseInterator {
             japanese: data.japanese,
             pinin: data.pinin,
         };
-        console.log(mappeddata);
+        // console.log(mappeddata);
         try {
             const res = await fetch(url, {
                 method: "POST",
@@ -49,5 +49,16 @@ export default class ChineseInterator {
             const sentences = await res.json();
             return sentences.Items;
         }
+    };
+
+    public deleteFavorite = async (url:string, data:{userid:string, chinese:string}) => {
+        const res = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        console.log("deleted");
     };
 }
