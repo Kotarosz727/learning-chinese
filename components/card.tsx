@@ -18,8 +18,7 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
         userid: string;
         chinese: string;
     };
-
-    const [content, setContent] = useState(sentence);
+    const [render, setRender] = useState(true);
     const url_favorite: string = process.env.LAMBDA_URL2;
     const postFavorite = async (value): Promise<void> => {
         await new ChineseInterator().postFavorite(value, userid, url);
@@ -32,21 +31,20 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
         };
         await new ChineseInterator().deleteFavorite(url_favorite, data);
         value.bookmark = false;
-        const updated = { ...value };
-        setContent(updated);
+        setRender(!render);
     };
 
     let bookmark = <div></div>;
-    if (content.bookmark === true) {
+    if (sentence.bookmark === true) {
         bookmark = (
             <span className={styles.bookMark}>
-                <BookmarkIcon fontSize="large" onClick={() => deleteFavorite(content)} />
+                <BookmarkIcon fontSize="large" onClick={() => deleteFavorite(sentence)} />
             </span>
         );
     } else {
         bookmark = (
             <span className={styles.bookMark}>
-                <BookmarkBorderOutlinedIcon fontSize="large" onClick={() => postFavorite(content)} />
+                <BookmarkBorderOutlinedIcon fontSize="large" onClick={() => postFavorite(sentence)} />
             </span>
         );
     }
@@ -61,17 +59,16 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
             res?.map((r) => {
                 bookmarked.push(r.chinese);
             });
-            if (bookmarked.findIndex((item) => item === content.chinese) >= 0) {
-                content.bookmark = true;
+            if (bookmarked.findIndex((item) => item === sentence.chinese) >= 0) {
+                sentence.bookmark = true;
             }
+            setRender(!render);
         }
-        const updated = { ...content };
-        setContent(updated);
     };
 
     const frontCard = (
         <div className={styles.front}>
-            <h2>{content.japanese}</h2>
+            <h2>{sentence.japanese}</h2>
         </div>
     );
     const backCard = (
@@ -79,11 +76,11 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
             <SpeakerIcon
                 color="action"
                 style={{ fontSize: 35 }}
-                onTouchStart={() => speak(content.chinese)}
-                onMouseDown={() => speak(content.chinese)}
+                onTouchStart={() => speak(sentence.chinese)}
+                onMouseDown={() => speak(sentence.chinese)}
             />
-            <h2>{content.chinese}</h2>
-            <p style={{ fontSize: 20 }}>{content.pinin}</p>
+            <h2>{sentence.chinese}</h2>
+            <p style={{ fontSize: 20 }}>{sentence.pinin}</p>
         </div>
     );
 
