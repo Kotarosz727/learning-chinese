@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
         );
         // Assuming you have two redirect URIs, and the first is for localhost and second is for production
         const [localRedirectSignIn, productionRedirectSignIn] = awsconfig.oauth.redirectSignIn.split(",");
-        console.log("aaaaa", productionRedirectSignIn)
+        console.log("aaaaa", productionRedirectSignIn);
         const [localRedirectSignOut, productionRedirectSignOut] = awsconfig.oauth.redirectSignOut.split(",");
 
         const updatedAwsConfig = {
@@ -37,11 +37,13 @@ function MyApp({ Component, pageProps }) {
     useEffect(() => {
         Auth.currentAuthenticatedUser({
             bypassCache: false,
-        }).then((user) => {
-            console.log("aaaaa", user);
-            setUsername(user.attributes.name);
-            setUserid(user.attributes.sub);
-        });
+        })
+            .then((user) => {
+                console.log("aaaaa", user);
+                setUsername(user.attributes.name);
+                setUserid(user.attributes.sub);
+            })
+            .catch((err) => console.log("error", err));
     });
 
     return (
