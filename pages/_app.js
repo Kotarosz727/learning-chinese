@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }) {
         );
         // Assuming you have two redirect URIs, and the first is for localhost and second is for production
         const [localRedirectSignIn, productionRedirectSignIn] = awsconfig.oauth.redirectSignIn.split(",");
+        console.log("aaaaa", productionRedirectSignIn)
         const [localRedirectSignOut, productionRedirectSignOut] = awsconfig.oauth.redirectSignOut.split(",");
 
         const updatedAwsConfig = {
