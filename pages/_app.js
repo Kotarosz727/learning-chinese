@@ -31,46 +31,28 @@ function MyApp({ Component, pageProps }) {
         Amplify.configure(updatedAwsConfig);
     }
 
-    const [username, setUsername] = useState(null);
-    const [userid, setUserid] = useState(null);
-    const [signedInUser, setSignedInUser] = useState(false);
+    // const [username, setUsername] = useState(null);
+    // const [userid, setUserid] = useState(null);
+    const [user, setUser] = useState(null);
+    // const [signedInUser, setSignedInUser] = useState(false);
 
     useEffect(() => {
-        authListener();
-        // Auth.currentAuthenticatedUser({
-        //     bypassCache: false,
-        // })
-        //     .then((user) => {
-        //         console.log("aaaaa", user);
-        //         setUsername(user.attributes.name);
-        //         setUserid(user.attributes.sub);
-        //     })
-        //     .then((data) => console.log("data", data))
-        //     .catch((err) => console.log("error", err));
-    });
-
-    async function authListener() {
-        Hub.listen("auth", (data) => {
-            switch (data.payload.event) {
+        Hub.listen("auth", ({ payload: { event, data } }) => {
+            switch (event) {
                 case "signIn":
-                    return setSignedInUser(true);
+                    this.setUser(data);
+                    break;
                 case "signOut":
-                    return setSignedInUser(false);
+                    this.setUser(null);
+                    break;
+                //   case "customOAuthUser":
+                //     this.setUser({ customState: data });
             }
         });
-        try {
-            const user = await Auth.currentAuthenticatedUser();
-            setSignedInUser(true);
-            console.log("aaaaa", user);
-            if(signedInUser) {
-                setUsername(user.attributes.name);
-                setUserid(user.attributes.sub);
-            }
-            
-        } catch (err) {
-            console.log("error", err);
-        }
-    }
+        Auth.currentAuthenticatedUser()
+            .then((user) => setUser(user))
+            .catch((err) => console.log("error", err));
+    });
 
     return (
         <UserContext.Provider value={userid}>
