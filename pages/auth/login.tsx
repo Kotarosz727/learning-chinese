@@ -4,6 +4,7 @@ import { TextField, Button } from "@material-ui/core";
 import Head from "../../components/head";
 import { useRouter } from "next/router";
 import aws_cognito from "../../src/interactors/AWS/aws_cognito";
+import Link from "next/link";
 
 export default function login() {
     type strOrNull = string | null;
@@ -89,6 +90,9 @@ export default function login() {
                 <Button style={button_style} variant="contained" color="primary" onClick={login}>
                     ログイン
                 </Button>
+                <Link href="/auth/signup">
+                    <a>サインアップ</a>
+                </Link>
             </div>
         </>
     );

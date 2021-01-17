@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { TextField, Button } from "@material-ui/core";
 import Head from "../../components/head";
 import aws_cognito from "../../src/interactors/AWS/aws_cognito";
+import Amplify, { Auth, Hub } from "aws-amplify";
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth/lib/types';
 
 export default function signup(): JSX.Element {
     const [name, setName] = useState<string | null>("");
@@ -15,6 +17,25 @@ export default function signup(): JSX.Element {
     const [errorToggleForPassword, setErrorToggleForPassword] = useState<boolean>(false);
     const [isTranslate, toggleTranslate] = useState<boolean>(false);
     const router = useRouter();
+
+    // useEffect(() => {
+    //     Hub.listen("auth", ({ payload: { event, data } }) => {
+    //         switch (event) {
+    //             case "signIn":
+    //                 this.setState({ user: data });
+    //                 break;
+    //             case "signOut":
+    //                 this.setState({ user: null });
+    //                 break;
+    //             case "customOAuthState":
+    //                 this.setState({ customState: data });
+    //         }
+    //     });
+
+    //     Auth.currentAuthenticatedUser()
+    //         .then((user) => this.setState({ user }))
+    //         .catch(() => console.log("Not signed in"));
+    // });
 
     const styles: React.CSSProperties = {
         display: "block",
@@ -41,7 +62,7 @@ export default function signup(): JSX.Element {
         type error_object = {
             kind: string;
             msg: string;
-        }
+        };
         const res: true | error_object = await new aws_cognito().cognito_signUp(name, password);
         if (res === true) {
             alert("会員登録いただきありがとうございます。管理者の認証をお待ちください。");
@@ -93,6 +114,7 @@ export default function signup(): JSX.Element {
                 >
                     登録
                 </Button>
+                <button onClick={() => Auth.federatedSignIn({provider:  CognitoHostedUIIdentityProvider.Facebook })}>FaceBookログイン</button>
             </div>
         </>
     );
