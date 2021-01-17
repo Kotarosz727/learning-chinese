@@ -4,7 +4,7 @@ import { TextField, Button } from "@material-ui/core";
 import Head from "../../components/head";
 import aws_cognito from "../../src/interactors/AWS/aws_cognito";
 import Amplify, { Auth, Hub } from "aws-amplify";
-import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth/lib/types';
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
 
 export default function signup(): JSX.Element {
     const [name, setName] = useState<string | null>("");
@@ -81,7 +81,7 @@ export default function signup(): JSX.Element {
     return (
         <>
             <Head title="会員登録"></Head>
-            <div style={styles}>
+            <div id="fb-root" style={styles}>
                 <div onMouseOver={(): void => toggleTranslate(!isTranslate)}>
                     {isTranslate ? <h2>会员登录</h2> : <h2>会員登録</h2>}
                 </div>
@@ -114,7 +114,18 @@ export default function signup(): JSX.Element {
                 >
                     登録
                 </Button>
-                <button onClick={() => Auth.federatedSignIn({provider:  CognitoHostedUIIdentityProvider.Facebook })}>FaceBookログイン</button>
+                <div
+                    className="fb-login-button"
+                    data-width=""
+                    data-size="medium"
+                    data-button-type="login_with"
+                    data-layout="default"
+                    data-auto-logout-link="false"
+                    data-use-continue-as="false"
+                ></div>
+                <button onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })}>
+                    FaceBookログイン
+                </button>
             </div>
         </>
     );
