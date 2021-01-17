@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }) {
                 setUsername(user.attributes.name);
                 setUserid(user.attributes.sub);
             })
-            .then(data => console.log("data", data))
+            .then((data) => console.log("data", data))
             .catch((err) => console.log("error", err));
     });
 
