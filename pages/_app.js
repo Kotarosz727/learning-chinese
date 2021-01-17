@@ -38,6 +38,8 @@ function MyApp({ Component, pageProps }) {
 
     useEffect(() => {
         Hub.listen("auth", ({ payload: { event, data } }) => {
+            console.log('event',event)
+            console.log('data',data)
             switch (event) {
                 case "signIn":
                     this.setUser(data);
