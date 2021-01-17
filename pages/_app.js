@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../styles/globals.css";
 import { UserContext } from "../UserContext";
-import Amplify, { Auth } from "aws-amplify";
+import Amplify, { Auth, Hub } from "aws-amplify";
 import awsconfig from "../src/aws-exports";
 import AppBar from "../components/bar";
 Amplify.configure(awsconfig);
@@ -33,19 +33,44 @@ function MyApp({ Component, pageProps }) {
 
     const [username, setUsername] = useState(null);
     const [userid, setUserid] = useState(null);
+    const [signedInUser, setSignedInUser] = useState(false);
 
     useEffect(() => {
-        Auth.currentAuthenticatedUser({
-            bypassCache: false,
-        })
-            .then((user) => {
-                console.log("aaaaa", user);
+        authListener();
+        // Auth.currentAuthenticatedUser({
+        //     bypassCache: false,
+        // })
+        //     .then((user) => {
+        //         console.log("aaaaa", user);
+        //         setUsername(user.attributes.name);
+        //         setUserid(user.attributes.sub);
+        //     })
+        //     .then((data) => console.log("data", data))
+        //     .catch((err) => console.log("error", err));
+    });
+
+    async function authListener() {
+        Hub.listen("auth", (data) => {
+            switch (data.payload.event) {
+                case "signIn":
+                    return setSignedInUser(true);
+                case "signOut":
+                    return setSignedInUser(false);
+            }
+        });
+        try {
+            const user = await Auth.currentAuthenticatedUser();
+            setSignedInUser(true);
+            console.log("aaaaa", user);
+            if(signedInUser) {
                 setUsername(user.attributes.name);
                 setUserid(user.attributes.sub);
-            })
-            .then((data) => console.log("data", data))
-            .catch((err) => console.log("error", err));
-    });
+            }
+            
+        } catch (err) {
+            console.log("error", err);
+        }
+    }
 
     return (
         <UserContext.Provider value={userid}>
