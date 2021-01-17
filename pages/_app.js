@@ -49,6 +49,7 @@ function MyApp({ Component, pageProps }) {
                 //     this.setUser({ customState: data });
             }
         });
+        console.log("user!!!", user)
         Auth.currentAuthenticatedUser()
             .then((user) => {
                 setUser(user);
