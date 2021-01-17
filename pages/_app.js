@@ -4,7 +4,7 @@ import { UserContext } from "../UserContext";
 import Amplify, { Auth, Hub } from "aws-amplify";
 import awsconfig from "../src/aws-exports";
 import AppBar from "../components/bar";
-Amplify.configure(awsconfig);
+Amplify.configure({ ...awsconfig, ssr: true });
 
 function MyApp({ Component, pageProps }) {
     if (process.browser) {
@@ -31,8 +31,8 @@ function MyApp({ Component, pageProps }) {
         Amplify.configure(updatedAwsConfig);
     }
 
-    // const [username, setUsername] = useState(null);
-    // const [userid, setUserid] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [userid, setUserid] = useState(null);
     const [user, setUser] = useState(null);
     // const [signedInUser, setSignedInUser] = useState(false);
 
@@ -50,9 +50,14 @@ function MyApp({ Component, pageProps }) {
             }
         });
         Auth.currentAuthenticatedUser()
-            .then((user) => setUser(user))
+            .then((user) => {
+                setUser(user);
+                console.log("aaaaa", user);
+                setUsername(user.attributes.name);
+                setUserid(user.attributes.sub);
+            })
             .catch((err) => console.log("error", err));
-    });
+    },[]);
 
     return (
         <UserContext.Provider value={userid}>
