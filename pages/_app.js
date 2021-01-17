@@ -7,7 +7,7 @@ import AppBar from "../components/bar";
 Amplify.configure({ ...awsconfig, ssr: true });
 
 function MyApp({ Component, pageProps }) {
-    if (process.browser) {
+    if (typeof window !== "undefined") {
         const isLocalhost = Boolean(
             window.location.hostname === "localhost" ||
                 // [::1] is the IPv6 localhost address.
@@ -33,34 +33,32 @@ function MyApp({ Component, pageProps }) {
 
     const [username, setUsername] = useState(null);
     const [userid, setUserid] = useState(null);
-    const [user, setUser] = useState(null);
     // const [signedInUser, setSignedInUser] = useState(false);
 
     useEffect(() => {
-        Hub.listen("auth", ({ payload: { event, data } }) => {
-            console.log('event',event)
-            console.log('data',data)
-            switch (event) {
-                case "signIn":
-                    this.setUser(data);
-                    break;
-                case "signOut":
-                    this.setUser(null);
-                    break;
-                //   case "customOAuthUser":
-                //     this.setUser({ customState: data });
-            }
-        });
-        console.log("user!!!", user)
+        // Hub.listen("auth", ({ payload: { event, data } }) => {
+        //     console.log('event',event)
+        //     console.log('data',data)
+        //     switch (event) {
+        //         case "signIn":
+        //             this.setUser(data);
+        //             break;
+        //         case "signOut":
+        //             this.setUser(null);
+        //             break;
+        //         //   case "customOAuthUser":
+        //         //     this.setUser({ customState: data });
+        //     }
+        // });
+        // console.log("user!!!", user)
         Auth.currentAuthenticatedUser()
             .then((user) => {
-                setUser(user);
                 console.log("aaaaa", user);
                 setUsername(user.attributes.name);
                 setUserid(user.attributes.sub);
             })
             .catch((err) => console.log("error", err));
-    },[]);
+    },);
 
     return (
         <UserContext.Provider value={userid}>
