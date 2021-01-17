@@ -7,6 +7,24 @@ import AppBar from "../components/bar";
 Amplify.configure(awsconfig);
 
 function MyApp({ Component, pageProps }) {
+    if (process.browser) {
+        const isLocalhost = Boolean(window.location.hostname === "localhost");
+        // Assuming you have two redirect URIs, and the first is for localhost and second is for production
+        const [localRedirectSignIn, productionRedirectSignIn] = awsconfig.oauth.redirectSignIn.split(",");
+
+        const [localRedirectSignOut, productionRedirectSignOut] = awsconfig.oauth.redirectSignOut.split(",");
+
+        const updatedAwsConfig = {
+            ...awsconfig,
+            oauth: {
+                ...awsconfig.oauth,
+                redirectSignIn: isLocalhost ? localRedirectSignIn : productionRedirectSignIn,
+                redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
+            },
+        };
+        Amplify.configure(updatedAwsConfig);
+    }
+
     const [username, setUsername] = useState(null);
     const [userid, setUserid] = useState(null);
 
@@ -14,7 +32,8 @@ function MyApp({ Component, pageProps }) {
         Auth.currentAuthenticatedUser({
             bypassCache: false,
         }).then((user) => {
-            setUsername(user.username);
+            console.log("aaaaa", user);
+            setUsername(user.attributes.name);
             setUserid(user.attributes.sub);
         });
     });
