@@ -16,10 +16,10 @@ const awsmobile = {
             "profile",
             "aws.cognito.signin.user.admin"
         ],
-        // "redirectSignIn": "https://learning-chinese.vercel.app/",
-        // "redirectSignOut": "https://learning-chinese.vercel.app/",
-        "redirectSignIn": "http://localhost:3000/",
-        "redirectSignOut": "http://localhost:3000/",
+        "redirectSignIn": "https://learning-chinese.vercel.app/",
+        "redirectSignOut": "https://learning-chinese.vercel.app/",
+        // "redirectSignIn": "http://localhost:3000/",
+        // "redirectSignOut": "http://localhost:3000/",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS"
