@@ -6,7 +6,6 @@ import aws_cognito from "../../src/interactors/AWS/aws_cognito";
 import Amplify, { Auth, Hub } from "aws-amplify";
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
 import FacebookIcon from "@material-ui/icons/Facebook";
-import Image from "next/image";
 
 export default function signup(): JSX.Element {
     const [name, setName] = useState<string | null>("");

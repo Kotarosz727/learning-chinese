@@ -4,7 +4,8 @@ import { TextField, Button } from "@material-ui/core";
 import Head from "../../components/head";
 import { useRouter } from "next/router";
 import aws_cognito from "../../src/interactors/AWS/aws_cognito";
-import Link from "next/link";
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
+import FacebookIcon from "@material-ui/icons/Facebook";
 
 export default function login() {
     type strOrNull = string | null;
@@ -21,7 +22,7 @@ export default function login() {
         margin: "0 auto",
         textAlign: "center",
         marginTop: "10rem",
-        height: 300,
+        height: 500,
         width: 500,
         border: "2px solid #ccc",
         borderRadius: "1rem",
@@ -30,6 +31,24 @@ export default function login() {
 
     const button_style: React.CSSProperties = {
         marginTop: "2rem",
+    };
+    const facebook_button_style: React.CSSProperties = {
+        marginTop: "1rem",
+        color: "white",
+        backgroundColor: "#2b9ce3",
+        width: 220,
+    };
+    const google_button_style: React.CSSProperties = {
+        marginTop: "0.8rem",
+        color: "white",
+        backgroundColor: "#cf2960",
+        width: 220,
+    };
+    const amazon_button_style: React.CSSProperties = {
+        marginTop: "0.8rem",
+        color: "white",
+        backgroundColor: "#f5ca49",
+        width: 220,
     };
 
     const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,12 +106,39 @@ export default function login() {
                         onChange={handlePassword}
                     />
                 </div>
-                <Button style={button_style} variant="contained" color="primary" onClick={login}>
-                    ログイン
-                </Button>
-                <Link href="/auth/signup">
-                    <a>サインアップ</a>
-                </Link>
+                <div>
+                    <Button style={button_style} variant="contained" color="primary" onClick={login}>
+                        ログイン
+                    </Button>
+                </div>
+                <div>
+                    <Button
+                        style={facebook_button_style}
+                        variant="contained"
+                        onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })}
+                    >
+                        <FacebookIcon style={{ marginRight: 3 }} />
+                        Facebookでログイン
+                    </Button>
+                </div>
+                <div>
+                    <Button
+                        style={google_button_style}
+                        variant="contained"
+                        onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}
+                    >
+                        Googleでログイン
+                    </Button>
+                </div>
+                <div>
+                    <Button
+                        style={amazon_button_style}
+                        variant="contained"
+                        onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Amazon })}
+                    >
+                        Amazonでログイン
+                    </Button>
+                </div>
             </div>
         </>
     );
