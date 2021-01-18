@@ -18,31 +18,12 @@ export default function signup(): JSX.Element {
     const [isTranslate, toggleTranslate] = useState<boolean>(false);
     const router = useRouter();
 
-    // useEffect(() => {
-    //     Hub.listen("auth", ({ payload: { event, data } }) => {
-    //         switch (event) {
-    //             case "signIn":
-    //                 this.setState({ user: data });
-    //                 break;
-    //             case "signOut":
-    //                 this.setState({ user: null });
-    //                 break;
-    //             case "customOAuthState":
-    //                 this.setState({ customState: data });
-    //         }
-    //     });
-
-    //     Auth.currentAuthenticatedUser()
-    //         .then((user) => this.setState({ user }))
-    //         .catch(() => console.log("Not signed in"));
-    // });
-
     const styles: React.CSSProperties = {
         display: "block",
         margin: "0 auto",
         textAlign: "center" as "center",
         marginTop: "10rem",
-        height: 350,
+        height: 450,
         width: 500,
         border: "2px solid #ccc",
         borderRadius: "1rem",
@@ -50,6 +31,11 @@ export default function signup(): JSX.Element {
     };
     const button_style: React.CSSProperties = {
         marginTop: "2rem",
+        backgroundColor: "#2b9ce3",
+        color: "white"
+    };
+    const facebook_button_style: React.CSSProperties = {
+        backgroundColor: "#2b9ce3",
     };
 
     const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +67,7 @@ export default function signup(): JSX.Element {
     return (
         <>
             <Head title="会員登録"></Head>
-            <div id="fb-root" style={styles}>
+            <div style={styles}>
                 <div onMouseOver={(): void => toggleTranslate(!isTranslate)}>
                     {isTranslate ? <h2>会员登录</h2> : <h2>会員登録</h2>}
                 </div>
@@ -106,26 +92,25 @@ export default function signup(): JSX.Element {
                         onChange={handlePassword}
                     />
                 </div>
+                <div>
                 <Button
                     style={button_style}
                     variant="contained"
-                    color="primary"
+                    // color="primary"
                     onClick={(): Promise<void> => signUp()}
                 >
                     登録
                 </Button>
-                <div
-                    className="fb-login-button"
-                    data-width=""
-                    data-size="medium"
-                    data-button-type="login_with"
-                    data-layout="default"
-                    data-auto-logout-link="false"
-                    data-use-continue-as="false"
-                ></div>
-                <button onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })}>
-                    FaceBookログイン
-                </button>
+                </div>
+                <div>
+                <Button
+                    style={button_style}
+                    variant="contained"
+                    onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })}
+                >
+                    FaceBookでログイン
+                </Button>
+                </div>
             </div>
         </>
     );

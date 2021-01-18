@@ -65,13 +65,6 @@ function MyApp({ Component, pageProps }) {
             <AppBar username={username} />
             <Component {...pageProps} />
             <script src="https://code.responsivevoice.org/responsivevoice.js?key=vLiZJoXL"></script>
-            <script
-                async
-                defer
-                crossorigin="anonymous"
-                src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v9.0&appId=1510911659043472&autoLogAppEvents=1"
-                nonce="W5ZBjMld"
-            ></script>
         </UserContext.Provider>
     );
 }
