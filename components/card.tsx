@@ -88,7 +88,7 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
         if (userid) {
             updateBookmarkStatus(url_favorite, userid);
         }
-    }, [userid]);
+    }, [userid, sentence]);
 
     return (
         <div className={`${styles.card} ${flip ? styles.flip : ""}`} key={index}>

@@ -26,17 +26,10 @@
 }
 
 .button {
-    color: seashell;
-    background-color: red;
     border-radius: 50%;
     position: absolute;
     right: 0.8rem;
     bottom: 0.5rem;
-}
-
-.button:hover {
-    transform: scale(1.26);
-    box-shadow: 0 0 7px 3px rgba(224, 10, 10, 0.699);
 }
 
 .bookMark {
@@ -45,5 +38,5 @@
     bottom: 0.5rem;
 }
 .bookMark:hover {
-    transform: scale(1.26);
+    transform: scale(1.2);
 }
