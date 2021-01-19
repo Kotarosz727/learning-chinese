@@ -53,7 +53,6 @@ function MyApp({ Component, pageProps }) {
         // console.log("user!!!", user)
         Auth.currentAuthenticatedUser()
             .then((user) => {
-                console.log("aaaaa", user);
                 setUsername(user.attributes.name);
                 setUserid(user.attributes.sub);
             })

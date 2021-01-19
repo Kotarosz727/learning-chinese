@@ -1,14 +1,41 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/Home.module.css";
-import Card from "../components/card";
 import Head from "../components/head";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { UserContext } from "../UserContext";
 import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
-import BlockIcon from "@material-ui/icons/Block";
 import Pagination from "../components/pagination";
 
-export default function component({ sentence, url_main}) {
+export default function component({ sentence, url_main }) {
+    const userid: string = useContext(UserContext);
+    type type_favarites = {
+        userid: string;
+        chinese: string;
+        pinin: string;
+        japanese: string;
+    }[];
+    const [render, setRender] = useState(true);
+    const url_favorite: string = process.env.LAMBDA_URL2;
+    const updateBookmarkStatus = async (url_favorite, userid) => {
+        const res: type_favarites = await new ChineseInterator().fetchFavorites(url_favorite, userid);
+        if (res?.length) {
+            const bookmarked: string[] = [];
+            res?.map((r) => {
+                bookmarked.push(r.chinese);
+            });
+            sentence.map((v) => {
+                if (bookmarked.findIndex((item) => item === v.chinese) >= 0) {
+                    v.bookmark = true;
+                }
+            });
+            setRender(!render);
+        }
+    };
+
+    useEffect(() => {
+        if (userid) {
+            updateBookmarkStatus(url_favorite, userid);
+        }
+    }, [userid]);
 
     return (
         <>

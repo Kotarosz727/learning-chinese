@@ -13,11 +13,11 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
         pinin: string;
         japanese: string;
     }[];
-
     type data = {
         userid: string;
         chinese: string;
     };
+
     const [render, setRender] = useState(true);
     const url_favorite: string = process.env.LAMBDA_URL2;
     const postFavorite = async (value): Promise<void> => {
@@ -85,11 +85,8 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
     );
 
     useEffect(() => {
-        setFlip(false)
-        if (userid) {
-            updateBookmarkStatus(url_favorite, userid);
-        }
-    }, [userid, sentence]);
+        setFlip(false);
+    }, [sentence]);
 
     return (
         <div className={`${styles.card} ${flip ? styles.flip : ""}`} key={index}>
