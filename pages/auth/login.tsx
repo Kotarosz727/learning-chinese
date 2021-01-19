@@ -6,6 +6,11 @@ import { useRouter } from "next/router";
 import aws_cognito from "../../src/interactors/AWS/aws_cognito";
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
 import FacebookIcon from "@material-ui/icons/Facebook";
+import Link from "next/link";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 export default function login() {
     type strOrNull = string | null;
@@ -33,7 +38,7 @@ export default function login() {
         marginTop: "2rem",
     };
     const facebook_button_style: React.CSSProperties = {
-        marginTop: "1rem",
+        marginTop: "2rem",
         color: "white",
         backgroundColor: "#2b9ce3",
         width: 220,
@@ -85,27 +90,29 @@ export default function login() {
             <Head title={"ログイン"}></Head>
             <div style={styles}>
                 <h2>ログイン</h2>
-                <div>
-                    <TextField
-                        id="username"
+                <FormControl>
+                    <InputLabel htmlFor="username">ユーザー名</InputLabel>
+                    <Input
                         error={errorToggleForName}
-                        style={{ width: 400, marginBottom: "2rem", position: "relative" }}
-                        label="ユーザー名"
-                        helperText={errorMsgForName}
+                        id="username"
+                        style={{ width: 400, position: "relative" }}
                         onChange={handleName}
                     />
-                </div>
-                <div>
-                    <TextField
-                        id="password"
+                    <FormHelperText id="username">{errorMsgForName}</FormHelperText>
+                </FormControl>
+                <FormControl></FormControl>
+                <FormControl>
+                    <InputLabel htmlFor="password">パスワード</InputLabel>
+                    <Input
                         error={errorToggleForPassword}
+                        id="password"
                         style={{ width: 400, position: "relative" }}
-                        label="パスワード"
                         type="password"
-                        helperText={errorMsgForPassword}
                         onChange={handlePassword}
+                        autoComplete="on"
                     />
-                </div>
+                    <FormHelperText id="password">{errorMsgForPassword}</FormHelperText>
+                </FormControl>
                 <div>
                     <Button style={button_style} variant="contained" color="primary" onClick={login}>
                         ログイン
@@ -138,6 +145,11 @@ export default function login() {
                     >
                         Amazonでログイン
                     </Button>
+                </div>
+                <div style={{ textAlign: "left", marginTop: 25, marginLeft: 40 }}>
+                    <Link href="/auth/signup">
+                        <a>Create account</a>
+                    </Link>
                 </div>
             </div>
         </>

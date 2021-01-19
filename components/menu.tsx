@@ -44,12 +44,7 @@ export default function MyMenu({ user }) {
                 <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                     <MenuItem>
                         <Link href="/auth/login">
-                            <a>ログイン</a>
-                        </Link>
-                    </MenuItem>
-                    <MenuItem>
-                        <Link href="/auth/signup">
-                            <a>会員登録</a>
+                            <a>Sign In</a>
                         </Link>
                     </MenuItem>
                 </Menu>
