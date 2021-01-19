@@ -85,6 +85,7 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
     );
 
     useEffect(() => {
+        setFlip(false)
         if (userid) {
             updateBookmarkStatus(url_favorite, userid);
         }
