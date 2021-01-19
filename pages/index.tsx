@@ -5,20 +5,25 @@ import { UserContext } from "../UserContext";
 import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
 import Pagination from "../components/pagination";
 
-export default function component({ sentence, url_main }) {
+interface sentence {
+    readonly chinese: string;
+    readonly pinin: string;
+    readonly japanese: string;
+    bookmark: string | boolean;
+}
+interface Props {
+    sentence: Array<sentence>;
+    readonly url_main: string;
+}
+export default function component({ sentence, url_main }: Props) {
     const userid: string = useContext(UserContext);
-    type type_favarites = {
-        userid: string;
-        chinese: string;
-        pinin: string;
-        japanese: string;
-    }[];
+
     const [render, setRender] = useState(true);
     const url_favorite: string = process.env.LAMBDA_URL2;
     const updateBookmarkStatus = async (url_favorite, userid) => {
-        const res: type_favarites = await new ChineseInterator().fetchFavorites(url_favorite, userid);
+        const res: Array<sentence> = await new ChineseInterator().fetchFavorites(url_favorite, userid);
         if (res?.length) {
-            const bookmarked: string[] = [];
+            const bookmarked: Array<string> = [];
             res?.map((r) => {
                 bookmarked.push(r.chinese);
             });
@@ -48,9 +53,8 @@ export default function component({ sentence, url_main }) {
 }
 
 export const getStaticProps = async (): Promise<object> => {
-    const url_main = process.env.LAMBDA_URL;
-
-    const sentence = (await new ChineseInterator().fetchLists(url_main)) ?? [];
+    const url_main:string = process.env.LAMBDA_URL;
+    const sentence:[] = (await new ChineseInterator().fetchLists(url_main)) ?? [];
     return {
         props: {
             sentence,
