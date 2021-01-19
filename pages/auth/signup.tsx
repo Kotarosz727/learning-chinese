@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { TextField, Button } from "@material-ui/core";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
 import Head from "../../components/head";
 import aws_cognito from "../../src/interactors/AWS/aws_cognito";
 import Amplify, { Auth, Hub } from "aws-amplify";
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
 import FacebookIcon from "@material-ui/icons/Facebook";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 export default function signup(): JSX.Element {
     const [name, setName] = useState<string | null>("");
@@ -24,7 +28,7 @@ export default function signup(): JSX.Element {
         margin: "0 auto",
         textAlign: "center" as "center",
         marginTop: "10rem",
-        height: 450,
+        height: 500,
         width: 500,
         border: "2px solid #ccc",
         borderRadius: "1rem",
@@ -34,7 +38,7 @@ export default function signup(): JSX.Element {
         marginTop: "2rem",
     };
     const facebook_button_style: React.CSSProperties = {
-        marginTop: "0.8rem",
+        marginTop: "1.5rem",
         color: "white",
         backgroundColor: "#2b9ce3",
         width: 220,
@@ -85,27 +89,29 @@ export default function signup(): JSX.Element {
                 <div onMouseOver={(): void => toggleTranslate(!isTranslate)}>
                     {isTranslate ? <h2>会员登录</h2> : <h2>会員登録</h2>}
                 </div>
-                <div>
-                    <TextField
+                <FormControl>
+                    <InputLabel htmlFor="username">ユーザー名</InputLabel>
+                    <Input
                         error={errorToggleForName}
                         id="username"
-                        style={{ width: 400, marginBottom: "2rem", position: "relative" }}
-                        label="ユーザー名"
-                        helperText={errorMsgForName}
+                        style={{ width: 400, position: "relative" }}
                         onChange={handleName}
                     />
-                </div>
-                <div>
-                    <TextField
+                    <FormHelperText id="username">{errorMsgForName}</FormHelperText>
+                </FormControl>
+                <FormControl></FormControl>
+                <FormControl>
+                    <InputLabel htmlFor="password">パスワード</InputLabel>
+                    <Input
                         error={errorToggleForPassword}
                         id="password"
                         style={{ width: 400, position: "relative" }}
-                        label="パスワード"
                         type="password"
-                        helperText={errorMsgForPassword}
                         onChange={handlePassword}
+                        autoComplete="on"
                     />
-                </div>
+                    <FormHelperText id="password">{errorMsgForPassword}</FormHelperText>
+                </FormControl>
                 <div>
                     <Button
                         style={button_style}
@@ -139,7 +145,7 @@ export default function signup(): JSX.Element {
                     <Button
                         style={amazon_button_style}
                         variant="contained"
-                        onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Amazon})}
+                        onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Amazon })}
                     >
                         Amazonで会員登録
                     </Button>
