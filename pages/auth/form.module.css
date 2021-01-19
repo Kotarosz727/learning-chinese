@@ -1,0 +1,32 @@
+.form {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10rem;
+    height: 500px;
+    width: 300px;
+    border: 2px solid #ccc;
+    border-radius: 1rem;
+    position: relative;
+}
+.input {
+    width: 200px;
+    position: relative;
+}
+@media screen and (min-width: 1024px) {
+    .form {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 10rem;
+        height: 500px;
+        width: 500px;
+        border: 2px solid #ccc;
+        border-radius: 1rem;
+        position: relative;
+    }
+    .input {
+        width: 400px;
+        position: relative;
+    }
+}

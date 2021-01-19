@@ -1,0 +1,19 @@
+.title {
+    font-size: 25px;
+    margin-left: 10px;
+}
+.username {
+    font-size: 15px;
+    margin-left: 30px;
+}
+
+@media screen and (min-width: 1024px) {
+    .title {
+        font-size: 40px;
+        margin-left: 30px;
+    }
+    .username {
+        font-size: 30px;
+        margin-left: 50px;
+    }
+}

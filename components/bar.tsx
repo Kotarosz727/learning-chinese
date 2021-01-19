@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MyMenu from "./menu";
 import Link from "next/link";
+import styles from "./bar.module.css";
 
 export default function Bar({ username }) {
     return (
@@ -15,14 +16,14 @@ export default function Bar({ username }) {
                     <div>
                         <MyMenu user={username} />
                     </div>
-                    <Typography variant="h4" style={{ marginLeft: 30 }}>
+                    <Typography variant="h5">
                         <Link href="/">
-                            <a style={{ color: "white" }}>中国语学习</a>
+                            <div className={styles.title}><a style={{ color: "white" }}>中国语学习</a></div>
                         </Link>
                     </Typography>
                     {username ? (
-                        <Typography variant="h6" style={{ marginLeft: 30 }}>
-                            你好! {username}
+                        <Typography variant="h5">
+                            <div className={styles.username}>你好! {username}</div>
                         </Typography>
                     ) : (
                         ""

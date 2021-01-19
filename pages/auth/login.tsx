@@ -11,6 +11,7 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import styles from "./form.module.css";
 
 export default function login() {
     type strOrNull = string | null;
@@ -21,18 +22,6 @@ export default function login() {
     const [errorToggleForName, setErrorToggleForName] = useState<boolean>(false);
     const [errorToggleForPassword, setErrorToggleForPassword] = useState<boolean>(false);
     const router = useRouter();
-
-    const styles: React.CSSProperties = {
-        display: "block",
-        margin: "0 auto",
-        textAlign: "center",
-        marginTop: "10rem",
-        height: 500,
-        width: 500,
-        border: "2px solid #ccc",
-        borderRadius: "1rem",
-        position: "relative",
-    };
 
     const button_style: React.CSSProperties = {
         marginTop: "2rem",
@@ -88,14 +77,14 @@ export default function login() {
     return (
         <>
             <Head title={"ログイン"}></Head>
-            <div style={styles}>
+            <div className={styles.form}>
                 <h2>ログイン</h2>
                 <FormControl>
                     <InputLabel htmlFor="username">ユーザー名</InputLabel>
                     <Input
                         error={errorToggleForName}
                         id="username"
-                        style={{ width: 400, position: "relative" }}
+                        className={styles.input}
                         onChange={handleName}
                     />
                     <FormHelperText id="username">{errorMsgForName}</FormHelperText>
@@ -106,7 +95,7 @@ export default function login() {
                     <Input
                         error={errorToggleForPassword}
                         id="password"
-                        style={{ width: 400, position: "relative" }}
+                        className={styles.input}
                         type="password"
                         onChange={handlePassword}
                         autoComplete="on"

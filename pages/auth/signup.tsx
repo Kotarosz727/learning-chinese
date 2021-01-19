@@ -10,30 +10,20 @@ import Amplify, { Auth, Hub } from "aws-amplify";
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import styles from "./form.module.css";
 
 export default function signup(): JSX.Element {
     const [name, setName] = useState<string | null>("");
     const [password, setPassword] = useState<string | null>("");
     const [errorMsgForName, setErrorMsgForName] = useState<string | null>("");
     const [errorMsgForPassword, setErrorMsgForPassword] = useState<string>(
-        "8文字以上、1つ以上の半角数字を含めてください"
+        "8文字以上"
     );
     const [errorToggleForName, setErrorToggleForName] = useState<boolean>(false);
     const [errorToggleForPassword, setErrorToggleForPassword] = useState<boolean>(false);
     const [isTranslate, toggleTranslate] = useState<boolean>(false);
     const router = useRouter();
 
-    const styles: React.CSSProperties = {
-        display: "block",
-        margin: "0 auto",
-        textAlign: "center" as "center",
-        marginTop: "10rem",
-        height: 500,
-        width: 500,
-        border: "2px solid #ccc",
-        borderRadius: "1rem",
-        position: "relative",
-    };
     const button_style: React.CSSProperties = {
         marginTop: "2rem",
     };
@@ -85,7 +75,7 @@ export default function signup(): JSX.Element {
     return (
         <>
             <Head title="会員登録"></Head>
-            <div style={styles}>
+            <div className={styles.form}>
                 <div onMouseOver={(): void => toggleTranslate(!isTranslate)}>
                     {isTranslate ? <h2>会员登录</h2> : <h2>会員登録</h2>}
                 </div>
@@ -94,7 +84,7 @@ export default function signup(): JSX.Element {
                     <Input
                         error={errorToggleForName}
                         id="username"
-                        style={{ width: 400, position: "relative" }}
+                        className={styles.input}
                         onChange={handleName}
                     />
                     <FormHelperText id="username">{errorMsgForName}</FormHelperText>
@@ -105,7 +95,7 @@ export default function signup(): JSX.Element {
                     <Input
                         error={errorToggleForPassword}
                         id="password"
-                        style={{ width: 400, position: "relative" }}
+                        className={styles.input}
                         type="password"
                         onChange={handlePassword}
                         autoComplete="on"

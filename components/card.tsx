@@ -92,7 +92,7 @@ export default function card({ sentence, index, userid, url }: Props): JSX.Eleme
                 onMouseDown={() => speak(sentence.chinese)}
             />
             <h2>{sentence.chinese}</h2>
-            <p style={{ fontSize: 20 }}>{sentence.pinin}</p>
+            <p style={{ fontSize: 15 }}>{sentence.pinin}</p>
         </div>
     );
 
