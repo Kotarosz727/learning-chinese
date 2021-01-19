@@ -9,12 +9,9 @@
     box-shadow: 0 0 5px 2px black;
     background-color: white;
     height: 260px;
-    width: 500px;
+    width: 350px;
     margin-bottom: 1rem;
     cursor: pointer;
-    /* transform-style: preserve-3d;
-    transition: 250ms;
-    transform: perspective(1000px) rotateY(var(--rotate-y, 0)); */
 }
 .card:hover {
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.699);
@@ -39,4 +36,46 @@
 }
 .bookMark:hover {
     transform: scale(1.2);
+}
+
+@media screen and (min-width: 1024px) {
+    .card {
+        display: flex;
+        justify-content: center;
+        /* text-align: center; */
+        align-items: center;
+        margin: 0 auto;
+        position: relative;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 5px 2px black;
+        background-color: white;
+        height: 260px;
+        width: 500px;
+        margin-bottom: 1rem;
+        cursor: pointer;
+    }
+    .card:hover {
+        box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.699);
+    }
+
+    .card .front,
+    .card .back {
+        position: absolute;
+    }
+
+    .button {
+        border-radius: 50%;
+        position: absolute;
+        right: 0.8rem;
+        bottom: 0.5rem;
+    }
+
+    .bookMark {
+        position: absolute;
+        left: 0.8rem;
+        bottom: 0.5rem;
+    }
+    .bookMark:hover {
+        transform: scale(1.2);
+    }
 }
