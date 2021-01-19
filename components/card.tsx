@@ -6,7 +6,19 @@ import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutline
 import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 
-export default function card({ sentence, index, userid, url }): JSX.Element {
+interface sentence {
+    readonly chinese: string;
+    readonly pinin: string;
+    readonly japanese: string;
+    bookmark: string | boolean;
+}
+interface Props {
+    sentence: sentence;
+    readonly index: number;
+    readonly userid: string;
+    readonly url: string;
+}
+export default function card({ sentence, index, userid, url }: Props): JSX.Element {
     type type_favarites = {
         userid: string;
         chinese: string;
@@ -18,13 +30,13 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
         chinese: string;
     };
 
-    const [render, setRender] = useState(true);
+    const [render, setRender] = useState<boolean>(true);
     const url_favorite: string = process.env.LAMBDA_URL2;
     const postFavorite = async (value): Promise<void> => {
         await new ChineseInterator().postFavorite(value, userid, url);
         await updateBookmarkStatus(url_favorite, userid);
     };
-    const deleteFavorite = async (value) => {
+    const deleteFavorite = async (value): Promise<void> => {
         const data: data = {
             userid: userid,
             chinese: value.chinese,
@@ -34,7 +46,7 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
         setRender(!render);
     };
 
-    let bookmark = <div></div>;
+    let bookmark: JSX.Element = <div></div>;
     if (sentence.bookmark === true) {
         bookmark = (
             <span className={styles.bookMark}>
@@ -48,8 +60,8 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
             </span>
         );
     }
-    const [flip, setFlip] = useState(false);
-    const speak = (value) => {
+    const [flip, setFlip] = useState<boolean>(false);
+    const speak = (value): void => {
         responsiveVoice.speak(value, "Chinese Female");
     };
     const updateBookmarkStatus = async (url_favorite, userid) => {
@@ -66,12 +78,12 @@ export default function card({ sentence, index, userid, url }): JSX.Element {
         }
     };
 
-    const frontCard = (
+    const frontCard: JSX.Element = (
         <div className={styles.front}>
             <h2>{sentence.japanese}</h2>
         </div>
     );
-    const backCard = (
+    const backCard: JSX.Element = (
         <div className={styles.back}>
             <SpeakerIcon
                 color="action"

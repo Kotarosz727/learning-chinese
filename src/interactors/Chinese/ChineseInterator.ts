@@ -1,5 +1,5 @@
 export default class ChineseInterator {
-    public fetchLists = async (url): Promise<object | null> => {
+    public fetchLists = async (url): Promise<[] | null> => {
         try {
             const res = await fetch(url, { method: "GET", mode: "no-cors" });
             const sentences = await res.json();
@@ -32,7 +32,7 @@ export default class ChineseInterator {
         }
     };
 
-    public fetchFavorites = async (url, userid): Promise<[]> => {
+    public fetchFavorites = async (url, userid): Promise<[] | null> => {
         if (userid && url) {
             const data = {
                 userid: userid,
