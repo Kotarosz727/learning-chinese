@@ -30,7 +30,7 @@ export default function Pagination({ sentence, url }: Props) {
     };
 
     let NextButton: JSX.Element = <div></div>;
-    if (Math.floor(sentence?.length / 10) >= 1) {
+    if (Math.ceil(sentence?.length / 10) > 1 && Math.floor(sentence?.length / 10) != currentPage) {
         let style:React.CSSProperties = { fontSize: 50 }
         currentPage >= 1 ? style = { fontSize: 40, marginLeft:50 } : style = style;
         NextButton = <ArrowForwardIcon style={{ fontSize: 40, marginLeft:50 }} onClick={executeNextPage} />;
