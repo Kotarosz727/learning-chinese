@@ -11,6 +11,11 @@ import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import styles from "./form.module.css";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import HelpIcon from "@material-ui/icons/Help";
 
 export default function signup(): JSX.Element {
     const [name, setName] = useState<string | null>("");
@@ -22,6 +27,13 @@ export default function signup(): JSX.Element {
     const [errorToggleForName, setErrorToggleForName] = useState<boolean>(false);
     const [errorToggleForPassword, setErrorToggleForPassword] = useState<boolean>(false);
     const [isTranslate, toggleTranslate] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     const router = useRouter();
 
     const button_style: React.CSSProperties = {
@@ -75,9 +87,32 @@ export default function signup(): JSX.Element {
     return (
         <>
             <Head title="会員登録"></Head>
-            <div className={styles.form}>
-                <div onMouseOver={(): void => toggleTranslate(!isTranslate)}>
-                    {isTranslate ? <h2>会员登录</h2> : <h2>会員登録</h2>}
+            <div style={styles}>
+                <div>
+                    <div style={{ marginBottom: 20, marginTop: 10 }}>
+                        <span style={{ fontSize: 25, fontWeight: "bold" }}>会员登录</span>
+                        <span onClick={handleClickOpen} style={{ marginLeft: 15, cursor: "help"}}>
+                            <HelpIcon />
+                        </span>
+                    </div>
+                    <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                        <DialogTitle id="customized-dialog-title">
+                            会員登録をすると下記の機能をご利用いただけます。
+                            <br />
+                            (*無料です)
+                        </DialogTitle>
+                        <DialogContent dividers>
+                            <ul>
+                                <li>ブックマーク</li>
+                                <li>ランダム表示</li>
+                            </ul>
+                        </DialogContent>
+                        <DialogActions>
+                            <div onClick={handleClose} style={{ cursor: "default" }}>
+                                close
+                            </div>
+                        </DialogActions>
+                    </Dialog>
                 </div>
                 <FormControl>
                     <InputLabel htmlFor="username">ユーザー名</InputLabel>

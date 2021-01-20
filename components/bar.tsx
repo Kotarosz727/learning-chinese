@@ -11,7 +11,7 @@ import styles from "./bar.module.css";
 export default function Bar({ username }) {
     return (
         <div>
-            <AppBar position="fixed">
+            <AppBar position="fixed" style={{background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);" }}>
                 <Toolbar>
                     <div>
                         <MyMenu user={username} />
