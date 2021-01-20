@@ -33,6 +33,7 @@ function MyApp({ Component, pageProps }) {
 
     const [username, setUsername] = useState(null);
     const [userid, setUserid] = useState(null);
+    const [pictureUrl, setPictureUrl] = useState(null);
     // const [signedInUser, setSignedInUser] = useState(false);
 
     useEffect(() => {
@@ -53,6 +54,12 @@ function MyApp({ Component, pageProps }) {
         // console.log("user!!!", user)
         Auth.currentAuthenticatedUser()
             .then((user) => {
+                if (user.attributes?.picture) {
+                    const data = JSON.stringify(user.attributes.picture);
+                    console.log("aaaaa", data.split("\\")[9]);
+                    const url = data.split("\\")[9];
+                    setPictureUrl(url);
+                }
                 setUsername(user.attributes.name);
                 setUserid(user.attributes.sub);
             })
@@ -61,7 +68,7 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <UserContext.Provider value={userid}>
-            <AppBar username={username} />
+            <AppBar username={username} picture_url={pictureUrl} />
             <Component {...pageProps} />
             <script src="https://code.responsivevoice.org/responsivevoice.js?key=vLiZJoXL"></script>
         </UserContext.Provider>
