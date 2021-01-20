@@ -66,7 +66,6 @@ export default function login() {
     const login = async (): Promise<void> => {
         const res = await new aws_cognito().cognito_login(name, password);
         if (res === true) {
-            alert("Hi !");
             router.push("/");
         }
         if (typeof res === "object") {
