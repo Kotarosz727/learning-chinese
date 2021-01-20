@@ -87,7 +87,7 @@ export default function signup(): JSX.Element {
     return (
         <>
             <Head title="会員登録"></Head>
-            <div style={styles}>
+            <div className={styles.form}>
                 <div>
                     <div style={{ marginBottom: 20, marginTop: 10 }}>
                         <span style={{ fontSize: 25, fontWeight: "bold" }}>会员登录</span>
