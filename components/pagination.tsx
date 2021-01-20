@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/Home.module.css";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ViewContents from "./viewcontents";
 
 interface sentence {
@@ -23,16 +24,26 @@ export default function Pagination({ sentence, url }: Props) {
         setCurrentPage(currentPage + 1);
         window.scrollTo(0, 0);
     };
+    const executeBackPage = (): void => {
+        setCurrentPage(currentPage - 1);
+        window.scrollTo(0, 0);
+    };
 
     let NextButton: JSX.Element = <div></div>;
     if (Math.floor(sentence?.length / 10) >= 1) {
-        NextButton = <NavigateNextIcon style={{ fontSize: 50 }} onClick={executeNextPage} />;
+        let style:React.CSSProperties = { fontSize: 50 }
+        currentPage >= 1 ? style = { fontSize: 40, marginLeft:50 } : style = style;
+        NextButton = <ArrowForwardIcon style={{ fontSize: 40, marginLeft:50 }} onClick={executeNextPage} />;
+    }
+    let backButton: JSX.Element = <div></div>;
+    if (currentPage >= 1) {
+        backButton = <ArrowBackIcon style={{ fontSize: 40, marginRight:50 }} onClick={executeBackPage} />;
     }
 
     return (
         <>
             <ViewContents sentence={sentence} startPage={startPage} endPage={endPage} url={url} />
-            <div className={styles.next}>{NextButton}</div>
+            <div className={styles.arrow}>{backButton}{NextButton}</div>
         </>
     );
 }
