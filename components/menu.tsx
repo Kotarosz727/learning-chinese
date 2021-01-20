@@ -38,6 +38,11 @@ export default function MyMenu({ user }) {
                             <a>ブックマーク</a>
                         </Link>
                     </MenuItem>
+                    <MenuItem>
+                        <Link href="/random">
+                            <a>ランダム10選</a>
+                        </Link>
+                    </MenuItem>
                     <MenuItem onClick={() => logout()}>ログアウト</MenuItem>
                 </Menu>
             ) : (

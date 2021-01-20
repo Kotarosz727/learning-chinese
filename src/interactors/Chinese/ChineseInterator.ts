@@ -1,7 +1,7 @@
 export default class ChineseInterator {
     public fetchLists = async (url): Promise<[] | null> => {
         try {
-            const res = await fetch(url, { method: "GET", mode: "no-cors" });
+            const res = await fetch(url, { method: "GET"});
             const sentences = await res.json();
             return sentences.Items;
         } catch (e) {
