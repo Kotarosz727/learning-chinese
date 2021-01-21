@@ -31,7 +31,7 @@ export default function Random() {
                 }
             });
             setItems(items);
-            // setRender(!render);
+            setRender(!render);
         }
     };
 
@@ -40,6 +40,7 @@ export default function Random() {
         const start = Math.floor(Math.random() * sentence?.length);
         const end = start + 10;
         const randomItems: Array<sentence> = sentence?.slice(start, end);
+        setItems(randomItems);
         updateBookmarkStatus(url_favorite, userid, randomItems);
     };
 
