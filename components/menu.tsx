@@ -43,6 +43,11 @@ export default function MyMenu({ user }) {
                             <a>ランダム10選</a>
                         </Link>
                     </MenuItem>
+                    <MenuItem>
+                        <Link href="/translate">
+                            <a>翻訳</a>
+                        </Link>
+                    </MenuItem>
                     <MenuItem onClick={() => logout()}>ログアウト</MenuItem>
                 </Menu>
             ) : (
