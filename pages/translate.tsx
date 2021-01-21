@@ -21,7 +21,7 @@ export default function Translate() {
     };
 
     const textField = {
-        width: 300,
+        width: 250,
     };
 
     const speak = (value): void => {
@@ -54,7 +54,7 @@ export default function Translate() {
         <>
             <div style={{ marginBottom: 10 }}>
                 <span>日本語　</span>
-                <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} onMouseDown={() => doToggle(!pageToggle)} />
+                <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} />
                 <span>　中国語</span>
             </div>
             <div>
@@ -80,10 +80,10 @@ export default function Translate() {
     if (pageToggle) {
         pageContent = (
             <>
-                <div>
-                    <span>中国語</span>
-                    <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} onMouseDown={() => doToggle(!pageToggle)} />
-                    <span>日本語</span>
+                <div style={{ marginBottom: 10 }}>
+                    <span>中国語　</span>
+                    <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} />
+                    <span>　日本語</span>
                 </div>
                 <div>
                     <TextareaAutosize
