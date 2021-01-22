@@ -11,6 +11,7 @@ interface sentence {
     readonly pinin: string;
     readonly japanese: string;
     bookmark: string | boolean;
+    type?: string
 }
 interface Props {
     sentence: sentence;
@@ -54,7 +55,7 @@ export default function card({ sentence, index, userid, url }: Props): JSX.Eleme
                 <BookmarkIcon fontSize="large" onClick={() => deleteFavorite(sentence)} />
             </span>
         );
-    } else if (sentence.bookmark === 'false') {
+    } else if (sentence.type != 'note') {
         bookmark = (
             <span className={styles.bookMark}>
                 <BookmarkBorderOutlinedIcon fontSize="large" onClick={() => postFavorite(sentence)} />

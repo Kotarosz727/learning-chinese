@@ -106,7 +106,6 @@ export default class ChineseInterator {
                 }
                 return accumulater;
             }, []);
-            console.log('aaa', ret_arr)
             return ret_arr;
         }
     };
