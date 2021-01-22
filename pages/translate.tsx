@@ -113,7 +113,7 @@ export default function Translate() {
             <div className={styles.container}>
                 <div style={mystyle}>
                     {pageContent}
-                    {speaker ? (
+                    {speaker && !pageToggle ? (
                         <div>
                             <SpeakerIcon
                                 color="action"
