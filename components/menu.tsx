@@ -48,6 +48,11 @@ export default function MyMenu({ user }) {
                             <a>翻訳</a>
                         </Link>
                     </MenuItem>
+                    <MenuItem>
+                        <Link href="/notes">
+                            <a>単語帳</a>
+                        </Link>
+                    </MenuItem>
                     <MenuItem onClick={() => logout()}>ログアウト</MenuItem>
                 </Menu>
             ) : (

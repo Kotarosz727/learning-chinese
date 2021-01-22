@@ -1,7 +1,8 @@
+import BookMark from "../../../pages/bookmark";
 export default class ChineseInterator {
     public fetchLists = async (url): Promise<[] | null> => {
         try {
-            const res = await fetch(url, { method: "GET"});
+            const res = await fetch(url, { method: "GET" });
             const sentences = await res.json();
             return sentences.Items;
         } catch (e) {
@@ -16,6 +17,7 @@ export default class ChineseInterator {
             chinese: data.chinese,
             japanese: data.japanese,
             pinin: data.pinin,
+            type: "favorite",
         };
         // console.log(mappeddata);
         try {
@@ -27,6 +29,30 @@ export default class ChineseInterator {
                 },
                 body: JSON.stringify(mappeddata),
             });
+        } catch (e) {
+            console.log("got error", e);
+        }
+    };
+
+    public postNote = async (data, userid, url) => {
+        const mappeddata = {
+            userid: userid,
+            chinese: data.mychinese,
+            japanese: data.myjapanese,
+            pinin: data.mypinin,
+            type: "note",
+        };
+        console.log(mappeddata);
+        try {
+            const res = await fetch(url, {
+                method: "POST",
+                // mode: "no-cors",
+                headers: {
+                    "content-Type": "application/json",
+                },
+                body: JSON.stringify(mappeddata),
+            });
+            return await res.json();
         } catch (e) {
             console.log("got error", e);
         }
@@ -46,12 +72,46 @@ export default class ChineseInterator {
                 },
                 body: JSON.stringify(data),
             });
-            const sentences = await res.json();
-            return sentences.Items;
+            const json = await res.json();
+            const sentences = json.Items;
+            const ret_arr = sentences.reduce((accumulater, currentValue) => {
+                if (currentValue.type != "note") {
+                    accumulater.push(currentValue);
+                }
+                return accumulater;
+            }, []);
+            return ret_arr;
         }
     };
 
-    public deleteFavorite = async (url:string, data:{userid:string, chinese:string}) => {
+    public fetchNotes = async (url, userid): Promise<[] | null> => {
+        if (userid && url) {
+            const data = {
+                userid: userid,
+            };
+
+            const res = await fetch(url, {
+                method: "POST",
+                // mode: "no-cors",
+                headers: {
+                    "content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            const json = await res.json();
+            const sentences = json.Items;
+            const ret_arr = sentences.reduce((accumulater, currentValue) => {
+                if (currentValue.type === "note") {
+                    accumulater.push(currentValue);
+                }
+                return accumulater;
+            }, []);
+            console.log('aaa', ret_arr)
+            return ret_arr;
+        }
+    };
+
+    public deleteFavorite = async (url: string, data: { userid: string; chinese: string }) => {
         const res = await fetch(url, {
             method: "DELETE",
             headers: {

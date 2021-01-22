@@ -56,7 +56,6 @@ function MyApp({ Component, pageProps }) {
             .then((user) => {
                 if (user.attributes?.picture) {
                     const data = JSON.stringify(user.attributes.picture);
-                    console.log("aaaaa", data.split("\\")[9]);
                     const url = data.split("\\")[9];
                     setPictureUrl(url);
                 }

@@ -10,6 +10,7 @@ interface sentence {
     readonly pinin: string;
     readonly japanese: string;
     bookmark: string | boolean;
+    type?: string;
 }
 interface Props {
     sentence: Array<sentence>;

@@ -24,6 +24,7 @@ export default function card({ sentence, index, userid, url }: Props): JSX.Eleme
         chinese: string;
         pinin: string;
         japanese: string;
+        type: string;
     }[];
     type data = {
         userid: string;
@@ -53,7 +54,7 @@ export default function card({ sentence, index, userid, url }: Props): JSX.Eleme
                 <BookmarkIcon fontSize="large" onClick={() => deleteFavorite(sentence)} />
             </span>
         );
-    } else {
+    } else if (sentence.bookmark === 'false') {
         bookmark = (
             <span className={styles.bookMark}>
                 <BookmarkBorderOutlinedIcon fontSize="large" onClick={() => postFavorite(sentence)} />
