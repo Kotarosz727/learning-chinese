@@ -24,7 +24,7 @@ interface sentence {
 export default function Random() {
     const userid: string = useContext(UserContext);
     const [notes, setNotes] = useState<Array<sentence>>([]);
-    const [render, setRender] = useState(true);
+    const [handle, sethandle] = useState(true);
     const url_note: string = process.env.LAMBDA_URL2;
     const url_note_post: string = process.env.LAMBDA_URL_FRONT;
     const [open, setOpen] = useState<boolean>(false);
@@ -38,8 +38,8 @@ export default function Random() {
 
     const fetchNote = async () => {
         const notes: Array<sentence> = await new ChineseInterator().fetchNotes(url_note, userid);
-        console.log("fetching");
         setNotes(notes);
+        sethandle(!handle);
     };
 
     const postNote = async () => {
@@ -51,17 +51,16 @@ export default function Random() {
             mychinese: mychinese,
             mypinin: mypinin,
         };
-        console.log(data);
         const res = await new ChineseInterator().postNote(data, userid, url_note_post);
         setOpen(false);
-        setRender(!render);
+        fetchNote();
     };
 
     useEffect(() => {
         if (userid) {
             fetchNote();
         }
-    },[render]);
+    }, []);
 
     const btn = (
         <div style={{ textAlign: "center", marginLeft: 300 }}>
@@ -76,7 +75,7 @@ export default function Random() {
             <Head title="中国语学习"></Head>
             <div className={styles.container}>
                 {notes?.map((value, index) => (
-                    <Card sentence={value} index={index} userid={userid} url={url_note_post} />
+                    <Card sentence={value} index={index} userid={userid} url={url_note_post} fetchNote={fetchNote}/>
                 ))}
                 {notes.length ? btn : ""}
             </div>

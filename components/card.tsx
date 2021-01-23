@@ -20,8 +20,9 @@ interface Props {
     readonly index: number;
     readonly userid: string;
     readonly url: string;
+    fetchNote?: () => Promise<void>;
 }
-export default function card({ sentence, index, userid, url }: Props): JSX.Element {
+export default function card({ sentence, index, userid, url, fetchNote }: Props): JSX.Element {
     type type_favarites = {
         userid: string;
         chinese: string;
@@ -56,7 +57,7 @@ export default function card({ sentence, index, userid, url }: Props): JSX.Eleme
             chinese: value.chinese,
         };
         await new ChineseInterator().deleteNote(url_favorite, data);
-        setRender(!render);
+        fetchNote();
     };
 
     let bookmark: JSX.Element = <div></div>;
