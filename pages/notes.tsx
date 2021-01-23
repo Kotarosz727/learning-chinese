@@ -4,6 +4,8 @@ import styles from "../styles/Home.module.css";
 import Head from "../components/head";
 import { UserContext } from "../UserContext";
 import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 
 interface notes {
     readonly chinese: string;
@@ -29,11 +31,20 @@ export default function Random() {
         }
     }, []);
 
+    const btn = (
+        <div style={{ textAlign: "center", marginLeft: 300 }}>
+            <Fab size="small" color="secondary" aria-label="add">
+                <AddIcon />
+            </Fab>
+        </div>
+    );
+
     return (
         <>
             <Head title="中国语学习"></Head>
             <div className={styles.container}>
                 <Pagination sentence={notes} url={""} />
+                {btn}
             </div>
         </>
     );

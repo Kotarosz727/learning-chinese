@@ -21,6 +21,7 @@ export default function Translate() {
     const [chinese, setChinese] = useState<string>("");
     const [japanese, setJapanese] = useState<string>("");
     const [speaker, setSpeaker] = useState<boolean>(false);
+    const [addBtn, setAddBtn] = useState<boolean>(false);
     const [pageToggle, doToggle] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(false);
     const handleClickOpen = () => {
@@ -36,7 +37,9 @@ export default function Translate() {
         margin: "0 auto",
         textAlign: "center",
         marginTop: "15rem",
-        height: "500px",
+        height: "320px",
+        width: "300px",
+        border: "2px solid #ccc",
         borderRadius: "1rem",
         position: "relative",
     };
@@ -60,6 +63,7 @@ export default function Translate() {
         setJapanese(japaneseText);
         setChinese(json);
         setSpeaker(true);
+        setAddBtn(true);
     };
 
     const translateToJapanese = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -69,9 +73,10 @@ export default function Translate() {
         const urlWithParams = url + "?" + "text=" + chineseText + "&source=zh-cn" + "&target=ja";
         const res = await fetch(urlWithParams);
         const json: string = await res.json();
+        elm.innerText = json;
         setJapanese(chineseText);
         setChinese(json);
-        elm.innerText = json;
+        setAddBtn(true);
     };
 
     const postNote = async () => {
@@ -84,14 +89,15 @@ export default function Translate() {
             mypinin: mypinin,
         };
         const res = await new ChineseInterator().postNote(data, user_id, url_note);
-        console.log(res);
+        alert("単語帳に追加しました。");
+        setOpen(false);
     };
 
     let pageContent = (
         <>
-            <div style={{ marginBottom: 10 }}>
+            <div style={{ marginBottom: 20, marginTop: 25 }}>
                 <span>日本語　</span>
-                <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} />
+                <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} onMouseDown={() => doToggle(!pageToggle)} />
                 <span>　中国語</span>
             </div>
             <div>
@@ -117,9 +123,9 @@ export default function Translate() {
     if (pageToggle) {
         pageContent = (
             <>
-                <div style={{ marginBottom: 10 }}>
+                <div style={{ marginBottom: 20, marginTop: 25 }}>
                     <span>中国語　</span>
-                    <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} />
+                    <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} onMouseDown={() => doToggle(!pageToggle)} />
                     <span>　日本語</span>
                 </div>
                 <div>
@@ -154,14 +160,24 @@ export default function Translate() {
                         {speaker && !pageToggle ? (
                             <SpeakerIcon
                                 color="action"
-                                style={{ fontSize: 30 }}
+                                fontSize="large"
+                                style={{ position: "absolute", left: "1.3rem", bottom: "0.7rem" }}
                                 onTouchStart={() => speak(chinese)}
                                 onMouseDown={() => speak(chinese)}
                             />
                         ) : (
                             ""
                         )}
-                        <AddCircleIcon onClick={handleClickOpen} />
+                        {addBtn ? (
+                            <AddCircleIcon
+                                onClick={handleClickOpen}
+                                color="secondary"
+                                fontSize="large"
+                                style={{ position: "absolute", right: "1.3rem", bottom: "0.7rem" }}
+                            />
+                        ) : (
+                            ""
+                        )}
                     </div>
                 </div>
             </div>
@@ -198,7 +214,7 @@ export default function Translate() {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={postNote} color="primary">
+                    <Button variant="contained" onClick={postNote} color="primary" style={{ right: "1.2rem" }}>
                         追加
                     </Button>
                 </DialogActions>
