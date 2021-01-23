@@ -5,13 +5,15 @@ import CachedRoundedIcon from "@material-ui/icons/CachedRounded";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { useRouter } from "next/router";
 
 interface sentence {
     readonly chinese: string;
     readonly pinin: string;
     readonly japanese: string;
     bookmark: string | boolean;
-    type?: string
+    type?: string;
 }
 interface Props {
     sentence: sentence;
@@ -32,6 +34,7 @@ export default function card({ sentence, index, userid, url }: Props): JSX.Eleme
         chinese: string;
     };
 
+    const router = useRouter();
     const [render, setRender] = useState<boolean>(true);
     const url_favorite: string = process.env.LAMBDA_URL2;
     const postFavorite = async (value): Promise<void> => {
@@ -47,17 +50,25 @@ export default function card({ sentence, index, userid, url }: Props): JSX.Eleme
         value.bookmark = false;
         setRender(!render);
     };
+    const deleteNote = async (value): Promise<void> => {
+        const data: data = {
+            userid: userid,
+            chinese: value.chinese,
+        };
+        await new ChineseInterator().deleteNote(url_favorite, data);
+        setRender(!render);
+    };
 
     let bookmark: JSX.Element = <div></div>;
     if (sentence.bookmark === true) {
         bookmark = (
-            <span className={styles.bookMark}>
+            <span className={styles.leftPosition}>
                 <BookmarkIcon fontSize="large" onClick={() => deleteFavorite(sentence)} />
             </span>
         );
-    } else if (sentence.type != 'note') {
+    } else if (sentence.type != "note") {
         bookmark = (
-            <span className={styles.bookMark}>
+            <span className={styles.leftPosition}>
                 <BookmarkBorderOutlinedIcon fontSize="large" onClick={() => postFavorite(sentence)} />
             </span>
         );
@@ -80,22 +91,31 @@ export default function card({ sentence, index, userid, url }: Props): JSX.Eleme
         }
     };
 
+    const noteDeleteButton = (
+        <div className={styles.leftPosition}>
+            <DeleteForeverIcon fontSize="large" onClick={() => deleteNote(sentence)} />
+        </div>
+    );
+
     const frontCard: JSX.Element = (
         <div className={styles.front}>
             <h2>{sentence.japanese}</h2>
         </div>
     );
     const backCard: JSX.Element = (
-        <div className={styles.back}>
-            <SpeakerIcon
-                color="action"
-                style={{ fontSize: 35 }}
-                onTouchStart={() => speak(sentence.chinese)}
-                onMouseDown={() => speak(sentence.chinese)}
-            />
-            <h2>{sentence.chinese}</h2>
-            <p style={{ fontSize: 15 }}>{sentence.pinin}</p>
-        </div>
+        <>
+            <div className={styles.back}>
+                <SpeakerIcon
+                    color="action"
+                    style={{ fontSize: 35 }}
+                    onTouchStart={() => speak(sentence.chinese)}
+                    onMouseDown={() => speak(sentence.chinese)}
+                />
+                <h2>{sentence.chinese}</h2>
+                <p style={{ fontSize: 15 }}>{sentence.pinin}</p>
+            </div>
+            {sentence.type === "note" ? noteDeleteButton : ""}
+        </>
     );
 
     useEffect(() => {

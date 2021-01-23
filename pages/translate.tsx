@@ -102,7 +102,6 @@ export default function Translate() {
             </div>
             <div>
                 <TextareaAutosize
-                    aria-label="minimum height"
                     style={textField}
                     rowsMin={5}
                     placeholder="日本語"
@@ -112,7 +111,6 @@ export default function Translate() {
             <div>
                 <TextareaAutosize
                     id="ch"
-                    aria-label="minimum height"
                     style={textField}
                     rowsMin={5}
                     placeholder="中国語"
