@@ -1,6 +1,7 @@
 import BookMark from "../../../pages/bookmark";
 export default class ChineseInterator {
     public fetchLists = async (url): Promise<[] | null> => {
+        console.log('fetchingList')
         try {
             const res = await fetch(url, { method: "GET" });
             const sentences = await res.json();
@@ -64,7 +65,7 @@ export default class ChineseInterator {
             const data = {
                 userid: userid,
             };
-
+            console.log('fetchingFavorites')
             const res = await fetch(url, {
                 method: "POST",
                 // mode: "no-cors",
@@ -90,7 +91,7 @@ export default class ChineseInterator {
             const data = {
                 userid: userid,
             };
-
+            console.log('fetchingNotes')
             const res = await fetch(url, {
                 method: "POST",
                 // mode: "no-cors",
