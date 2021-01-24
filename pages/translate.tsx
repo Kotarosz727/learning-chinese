@@ -36,7 +36,7 @@ export default function Translate() {
         display: "block",
         margin: "0 auto",
         textAlign: "center",
-        marginTop: "15rem",
+        marginTop: "10rem",
         height: "320px",
         width: "300px",
         border: "2px solid #ccc",
@@ -97,7 +97,7 @@ export default function Translate() {
         <>
             <div style={{ marginBottom: 20, marginTop: 25 }}>
                 <span>日本語　</span>
-                <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} onMouseDown={() => doToggle(!pageToggle)} />
+                <SyncAltIcon onClick={() => doToggle(!pageToggle)} />
                 <span>　中国語</span>
             </div>
             <div>
@@ -123,7 +123,7 @@ export default function Translate() {
             <>
                 <div style={{ marginBottom: 20, marginTop: 25 }}>
                     <span>中国語　</span>
-                    <SyncAltIcon onTouchStart={() => doToggle(!pageToggle)} onMouseDown={() => doToggle(!pageToggle)} />
+                    <SyncAltIcon onClick={() => doToggle(!pageToggle)} />
                     <span>　日本語</span>
                 </div>
                 <div>

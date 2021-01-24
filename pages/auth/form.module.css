@@ -1,8 +1,9 @@
 .form {
-    display: block;
+    display: grid;
+    place-content: center;
     margin: 0 auto;
     text-align: center;
-    margin-top: 10rem;
+    margin-top: 7rem;
     height: 500px;
     width: 300px;
     border: 2px solid #ccc;
