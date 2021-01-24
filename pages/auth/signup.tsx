@@ -21,9 +21,7 @@ export default function signup(): JSX.Element {
     const [name, setName] = useState<string | null>("");
     const [password, setPassword] = useState<string | null>("");
     const [errorMsgForName, setErrorMsgForName] = useState<string | null>("");
-    const [errorMsgForPassword, setErrorMsgForPassword] = useState<string>(
-        "8文字以上"
-    );
+    const [errorMsgForPassword, setErrorMsgForPassword] = useState<string>("8文字以上");
     const [errorToggleForName, setErrorToggleForName] = useState<boolean>(false);
     const [errorToggleForPassword, setErrorToggleForPassword] = useState<boolean>(false);
     const [isTranslate, toggleTranslate] = useState<boolean>(false);
@@ -91,20 +89,20 @@ export default function signup(): JSX.Element {
                 <div>
                     <div style={{ marginBottom: 20, marginTop: 10 }}>
                         <span style={{ fontSize: 25, fontWeight: "bold" }}>会员登录</span>
-                        <span onClick={handleClickOpen} style={{ marginLeft: 15, cursor: "help"}}>
+                        <span onClick={handleClickOpen} style={{ marginLeft: 15, cursor: "help" }}>
                             <HelpIcon />
                         </span>
                     </div>
                     <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                         <DialogTitle id="customized-dialog-title">
                             会員登録をすると下記の機能をご利用いただけます。
-                            <br />
-                            (*無料です)
                         </DialogTitle>
                         <DialogContent dividers>
                             <ul>
                                 <li>ブックマーク</li>
                                 <li>ランダム表示</li>
+                                <li>翻訳</li>
+                                <li>単語帳</li>
                             </ul>
                         </DialogContent>
                         <DialogActions>
@@ -116,12 +114,7 @@ export default function signup(): JSX.Element {
                 </div>
                 <FormControl>
                     <InputLabel htmlFor="username">ユーザー名</InputLabel>
-                    <Input
-                        error={errorToggleForName}
-                        id="username"
-                        className={styles.input}
-                        onChange={handleName}
-                    />
+                    <Input error={errorToggleForName} id="username" className={styles.input} onChange={handleName} />
                     <FormHelperText id="username">{errorMsgForName}</FormHelperText>
                 </FormControl>
                 <FormControl></FormControl>
