@@ -18,7 +18,7 @@ export default function Bar({ username, picture_url }) {
     }
     return (
         <div>
-            <AppBar position="fixed" style={{ background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);" }}>
+            <AppBar position="fixed" style={{ background: "rgba(0, 0, 0, 0.87);" }}>
                 <Toolbar>
                     <div>
                         <MyMenu user={username} />

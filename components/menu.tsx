@@ -35,22 +35,22 @@ export default function MyMenu({ user }) {
                 <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                     <MenuItem>
                         <Link href="/bookmark">
-                            <a>ブックマーク</a>
+                            <a style={{ color: "white" }}>ブックマーク</a>
                         </Link>
                     </MenuItem>
                     <MenuItem>
                         <Link href="/random">
-                            <a>ランダム10選</a>
+                            <a style={{ color: "white" }}>ランダム10選</a>
                         </Link>
                     </MenuItem>
                     <MenuItem>
                         <Link href="/translate">
-                            <a>翻訳</a>
+                            <a style={{ color: "white" }}>翻訳</a>
                         </Link>
                     </MenuItem>
                     <MenuItem>
                         <Link href="/notes">
-                            <a>単語帳</a>
+                            <a style={{ color: "white" }}>単語帳</a>
                         </Link>
                     </MenuItem>
                     <MenuItem onClick={() => logout()}>ログアウト</MenuItem>

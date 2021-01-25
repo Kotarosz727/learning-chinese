@@ -5,6 +5,8 @@ import Amplify, { Auth, Hub } from "aws-amplify";
 import awsconfig from "../src/aws-exports";
 import AppBar from "../components/bar";
 Amplify.configure({ ...awsconfig, ssr: true });
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 function MyApp({ Component, pageProps }) {
     // if (typeof window !== "undefined") {
@@ -65,10 +67,19 @@ function MyApp({ Component, pageProps }) {
             .catch((err) => console.log("error", err));
     });
 
+    const theme = createMuiTheme({
+        palette: {
+            type: "dark",
+        },
+    });
+
     return (
         <UserContext.Provider value={userid}>
-            <AppBar username={username} picture_url={pictureUrl} />
-            <Component {...pageProps} />
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <AppBar username={username} picture_url={pictureUrl} />
+                <Component {...pageProps} />
+            </ThemeProvider>
             <script src="https://code.responsivevoice.org/responsivevoice.js?key=vLiZJoXL"></script>
         </UserContext.Provider>
     );

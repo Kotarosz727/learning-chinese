@@ -82,13 +82,13 @@ export default function Random() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">新規作成</DialogTitle>
                 <DialogContent>
-                    <TextField autoFocus margin="dense" id="mychinese" label="中国語" style={{ width: 300 }} />
+                    <TextField autoFocus margin="dense" id="mychinese" label="中国語" style={{ width: 250 }} />
                 </DialogContent>
                 <DialogContent>
-                    <TextField autoFocus margin="dense" id="myjapanese" label="日本語" style={{ width: 300 }} />
+                    <TextField autoFocus margin="dense" id="myjapanese" label="日本語" style={{ width: 250 }} />
                 </DialogContent>
                 <DialogContent>
-                    <TextField autoFocus margin="dense" id="mypinin" label="pinin" style={{ width: 300 }} />
+                    <TextField autoFocus margin="dense" id="mypinin" label="pinin" style={{ width: 250 }} />
                 </DialogContent>
                 <DialogActions>
                     <Button variant="contained" onClick={postNote} color="default" style={{ right: "1.2rem" }}>

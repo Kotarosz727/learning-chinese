@@ -7,7 +7,7 @@
     position: relative;
     border-radius: 0.25rem;
     box-shadow: 0 0 5px 2px black;
-    background-color: white;
+    /* background-color: white; */
     height: 180px;
     width: 350px;
     margin-bottom: 1rem;
@@ -48,7 +48,7 @@
         position: relative;
         border-radius: 0.25rem;
         box-shadow: 0 0 5px 2px black;
-        background-color: white;
+        /* background-color: white; */
         height: 260px;
         width: 500px;
         margin-bottom: 1rem;

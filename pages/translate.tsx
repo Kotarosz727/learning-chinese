@@ -101,20 +101,10 @@ export default function Translate() {
                 <span>　中国語</span>
             </div>
             <div>
-                <TextareaAutosize
-                    style={textField}
-                    rowsMin={5}
-                    placeholder="日本語"
-                    onBlur={translateToChinese}
-                />
+                <TextareaAutosize style={textField} rowsMin={5} placeholder="日本語" onBlur={translateToChinese} />
             </div>
             <div>
-                <TextareaAutosize
-                    id="ch"
-                    style={textField}
-                    rowsMin={5}
-                    placeholder="中国語"
-                />
+                <TextareaAutosize id="ch" style={textField} rowsMin={5} placeholder="中国語" />
             </div>
         </>
     );
@@ -153,8 +143,8 @@ export default function Translate() {
             <Head title="中国语学习"></Head>
             <div className={styles.container}>
                 <div style={mystyle}>
-                    {pageContent}
-                    <div>
+                    <div>{pageContent}</div>
+                    <div style={{ marginTop: "1rem" }}>
                         {speaker && !pageToggle ? (
                             <SpeakerIcon
                                 color="action"
@@ -188,7 +178,7 @@ export default function Translate() {
                         id="mychinese"
                         label="中国語"
                         value={chinese}
-                        style={{ width: 300 }}
+                        style={{ width: 250 }}
                     />
                 </DialogContent>
                 <DialogContent>
@@ -198,7 +188,7 @@ export default function Translate() {
                         id="myjapanese"
                         label="日本語"
                         value={japanese}
-                        style={{ width: 300 }}
+                        style={{ width: 250 }}
                     />
                 </DialogContent>
                 <DialogContent>
@@ -208,7 +198,7 @@ export default function Translate() {
                         id="mypinin"
                         label="pinin"
                         placeholder="空欄でも可"
-                        style={{ width: 300 }}
+                        style={{ width: 250 }}
                     />
                 </DialogContent>
                 <DialogActions>
