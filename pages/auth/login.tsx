@@ -136,7 +136,7 @@ export default function login() {
                 </div>
                 <div style={{ textAlign: "left", marginTop: 25, marginLeft: 40 }}>
                     <Link href="/auth/signup">
-                        <a>Create account</a>
+                        <a>Create account(Free)</a>
                     </Link>
                 </div>
             </div>
