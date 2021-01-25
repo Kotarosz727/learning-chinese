@@ -56,7 +56,7 @@ export default function Random({randomItems}:Props) {
     );
 }
 
-export const getStaticProps = async (): Promise<object> => {
+export const getServerSideProps = async (): Promise<object> => {
     const url_main: string = process.env.LAMBDA_URL;
     const sentence: [] = (await new ChineseInterator().fetchLists(url_main)) ?? [];
     const start = Math.floor(Math.random() * sentence?.length);
