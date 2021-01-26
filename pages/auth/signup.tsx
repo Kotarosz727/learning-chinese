@@ -102,7 +102,7 @@ export default function signup(): JSX.Element {
                                 <li>ブックマーク</li>
                                 <li>ランダム表示</li>
                                 <li>翻訳</li>
-                                <li>単語帳</li>
+                                <li>my単語帳</li>
                             </ul>
                         </DialogContent>
                         <DialogActions>

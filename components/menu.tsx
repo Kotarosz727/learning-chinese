@@ -50,7 +50,7 @@ export default function MyMenu({ user }) {
                     </MenuItem>
                     <MenuItem>
                         <Link href="/notes">
-                            <a style={{ color: "white" }}>単語帳</a>
+                            <a style={{ color: "white" }}>my単語帳</a>
                         </Link>
                     </MenuItem>
                     <MenuItem onClick={() => logout()}>ログアウト</MenuItem>
