@@ -13,18 +13,18 @@ interface sentence {
     type?: string;
 }
 interface Props {
-    randomItems: Array<sentence>
+    randomItems: Array<sentence>;
 }
-export default function Random({randomItems}:Props) {
+export default function Random({ randomItems }: Props) {
     const userid: string = useContext(UserContext);
     const url: string = process.env.LAMBDA_URL_FRONT;
     const [items, setItems] = useState<Array<sentence> | []>([]);
     const [render, setRender] = useState(true);
     const url_favorite: string = process.env.LAMBDA_URL2;
 
-    const updateBookmarkStatus = async (url_favorite, userid, items:Array<sentence>) => {
+    const updateBookmarkStatus = async (url_favorite, userid, items: Array<sentence>) => {
         const res: Array<sentence> = await new ChineseInterator().fetchFavorites(url_favorite, userid);
-        console.log("aa",items)
+        console.log("aa", items);
         if (res?.length) {
             const bookmarked: Array<string> = [];
             res?.map((r) => {
@@ -56,7 +56,7 @@ export default function Random({randomItems}:Props) {
     );
 }
 
-export const getServerSideProps = async (): Promise<object> => {
+export const getStaticProps = async (): Promise<object> => {
     const url_main: string = process.env.LAMBDA_URL;
     const sentence: [] = (await new ChineseInterator().fetchLists(url_main)) ?? [];
     const start = Math.floor(Math.random() * sentence?.length);
@@ -65,7 +65,7 @@ export const getServerSideProps = async (): Promise<object> => {
     return {
         props: {
             randomItems,
-            url_main,
         },
+        revalidate: 1,
     };
 };
