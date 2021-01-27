@@ -76,7 +76,7 @@ export default function card({ sentence, index, userid, url, fetchNote }: Props)
     }
     const [flip, setFlip] = useState<boolean>(false);
     const speak = (value): void => {
-        responsiveVoice.speak(value, "Chinese Female");
+        responsiveVoice.speak(value, "Chinese Male");
     };
     const updateBookmarkStatus = async (url_favorite, userid) => {
         const res: type_favarites = await new ChineseInterator().fetchFavorites(url_favorite, userid);
@@ -109,7 +109,8 @@ export default function card({ sentence, index, userid, url, fetchNote }: Props)
                 <SpeakerIcon
                     color="action"
                     style={{ fontSize: 35 }}
-                    onClick={()=>responsiveVoice.speak(sentence.chinese, "Chinese Female")}
+                    onTouchStart={() => speak(sentence.chinese)}
+                    onMouseDown={() => speak(sentence.chinese)}
                 />
                 <h2>{sentence.chinese}</h2>
                 <p style={{ fontSize: 15 }}>{sentence.pinin}</p>
