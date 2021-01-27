@@ -109,7 +109,7 @@ export default function card({ sentence, index, userid, url, fetchNote }: Props)
                 <SpeakerIcon
                     color="action"
                     style={{ fontSize: 35 }}
-                    onClick={()=>responsiveVoice.speak(sentence.chinese, "Chinese Female")}
+                    onClick={()=>responsiveVoice.speak(sentence.chinese)}
                 />
                 <h2>{sentence.chinese}</h2>
                 <p style={{ fontSize: 15 }}>{sentence.pinin}</p>
