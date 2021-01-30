@@ -1,4 +1,3 @@
-import BookMark from "../../../pages/bookmark";
 export default class ChineseInterator {
     public fetchLists = async (url): Promise<[] | null> => {
         console.log('fetchingList')
