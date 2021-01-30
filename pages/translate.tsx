@@ -13,6 +13,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import ChineseInterator from "../src/interactors/Chinese/ChineseInterator";
 import { UserContext } from "../UserContext";
+import Pinyin from "chinese-to-pinyin";
 
 export default function Translate() {
     const url: string = process.env.GAS_URL;
@@ -20,6 +21,7 @@ export default function Translate() {
     const user_id: string = useContext(UserContext);
     const [chinese, setChinese] = useState<string>("");
     const [japanese, setJapanese] = useState<string>("");
+    const [pinyin, setPinyin] = useState<string>("");
     const [speaker, setSpeaker] = useState<boolean>(false);
     const [addBtn, setAddBtn] = useState<boolean>(false);
     const [pageToggle, doToggle] = useState<boolean>(false);
@@ -53,29 +55,26 @@ export default function Translate() {
     };
 
     const translateToChinese = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const elm = document.getElementById("ch");
-        elm.innerText = "";
         const japaneseText = e.currentTarget.value;
         const urlWithParams = url + "?" + "text=" + japaneseText + "&source=ja" + "&target=zh-cn";
         const res = await fetch(urlWithParams);
         const json: string = await res.json();
-        elm.innerText = json;
         setJapanese(japaneseText);
         setChinese(json);
+        setPinyin(Pinyin(json));
         setSpeaker(true);
         setAddBtn(true);
     };
 
     const translateToJapanese = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const elm = document.getElementById("jpn");
-        elm.innerText = "";
         const chineseText = e.currentTarget.value;
         const urlWithParams = url + "?" + "text=" + chineseText + "&source=zh-cn" + "&target=ja";
         const res = await fetch(urlWithParams);
         const json: string = await res.json();
-        elm.innerText = json;
-        setJapanese(chineseText);
-        setChinese(json);
+        setJapanese(json);
+        setChinese(chineseText);
+        setPinyin(Pinyin(chineseText));
+        setSpeaker(true);
         setAddBtn(true);
     };
 
@@ -93,6 +92,7 @@ export default function Translate() {
         setOpen(false);
     };
 
+    //japanese to chinese
     let pageContent = (
         <>
             <div style={{ marginBottom: 20, marginTop: 25 }}>
@@ -104,11 +104,12 @@ export default function Translate() {
                 <TextareaAutosize style={textField} rowsMin={5} placeholder="日本語" onBlur={translateToChinese} />
             </div>
             <div>
-                <TextareaAutosize id="ch" style={textField} rowsMin={5} placeholder="中国語" />
+                <TextareaAutosize id="ch" style={textField} rowsMin={5} value={chinese + '\n' + pinyin} placeholder="中国語" />
             </div>
         </>
     );
     if (pageToggle) {
+        //chinese to japanese 
         pageContent = (
             <>
                 <div style={{ marginBottom: 20, marginTop: 25 }}>
@@ -126,13 +127,7 @@ export default function Translate() {
                     />
                 </div>
                 <div>
-                    <TextareaAutosize
-                        id="jpn"
-                        aria-label="minimum height"
-                        style={textField}
-                        rowsMin={5}
-                        placeholder="日本語"
-                    />
+                    <TextareaAutosize id="jpn" aria-label="minimum height" style={textField} value={japanese} rowsMin={5} placeholder="日本語" />
                 </div>
             </>
         );
@@ -145,7 +140,7 @@ export default function Translate() {
                 <div style={mystyle}>
                     <div>{pageContent}</div>
                     <div style={{ marginTop: "1rem" }}>
-                        {speaker && !pageToggle ? (
+                        {speaker ? (
                             <SpeakerIcon
                                 color="action"
                                 fontSize="large"
@@ -172,24 +167,10 @@ export default function Translate() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">単語帳へ追加</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="mychinese"
-                        label="中国語"
-                        value={chinese}
-                        style={{ width: 250 }}
-                    />
+                    <TextField autoFocus margin="dense" id="mychinese" label="中国語" value={chinese} style={{ width: 250 }} />
                 </DialogContent>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="myjapanese"
-                        label="日本語"
-                        value={japanese}
-                        style={{ width: 250 }}
-                    />
+                    <TextField autoFocus margin="dense" id="myjapanese" label="日本語" value={japanese} style={{ width: 250 }} />
                 </DialogContent>
                 <DialogContent>
                     <TextField
@@ -197,6 +178,7 @@ export default function Translate() {
                         margin="dense"
                         id="mypinin"
                         label="pinin"
+                        value={pinyin}
                         placeholder="空欄でも可"
                         style={{ width: 250 }}
                     />
